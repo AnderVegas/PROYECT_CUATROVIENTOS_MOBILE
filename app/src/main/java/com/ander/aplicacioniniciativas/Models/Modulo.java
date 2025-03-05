@@ -1,14 +1,15 @@
 package com.ander.aplicacioniniciativas.Models;
 
-import io.realm.RealmList;
+import java.util.List;
+
 import io.realm.RealmObject;
 
-public class Modulo extends RealmObject {
+public class Modulo {
     private int idModulo;
     private String nombre;
-    private RealmList<Curso> curso;
+    private List<Curso> curso;
 
-    public Modulo(int idModulo, String nombre, RealmList<Curso> curso) {
+    public Modulo(int idModulo, String nombre, List<Curso> curso) {
         this.idModulo = idModulo;
         this.nombre = nombre;
         this.curso = curso;
@@ -32,11 +33,11 @@ public class Modulo extends RealmObject {
         this.nombre = nombre;
     }
 
-    public RealmList<Curso> getCurso() {
+    public List<Curso> getCurso() {
         return curso;
     }
 
-    public void setCurso(RealmList<Curso> curso) {
+    public void setCurso(List<Curso> curso) {
         this.curso = curso;
     }
 }

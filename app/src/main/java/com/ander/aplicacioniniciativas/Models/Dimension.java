@@ -1,8 +1,6 @@
 package com.ander.aplicacioniniciativas.Models;
 
-import io.realm.RealmObject;
-
-public class Dimension extends RealmObject {
+public class Dimension {
     private int idDimension;
     private String nombre;
 

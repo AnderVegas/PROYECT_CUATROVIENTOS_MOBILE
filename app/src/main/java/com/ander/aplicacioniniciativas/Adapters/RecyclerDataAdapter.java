@@ -1,5 +1,6 @@
 package com.ander.aplicacioniniciativas.Adapters;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,19 +13,21 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.ander.aplicacioniniciativas.Models.Iniciativa;
 import com.ander.aplicacioniniciativas.R;
 
+import java.util.List;
+
 import io.realm.RealmResults;
 
 public class RecyclerDataAdapter extends RecyclerView.Adapter<RecyclerDataAdapter.RecyclerDataHolder>{
 
     View view;
-    private RealmResults<Iniciativa> listData;
+    private List<Iniciativa> listData;
     private OnItemClickListener itemListener;
 
-    public RecyclerDataAdapter(RealmResults<Iniciativa> listData){
+    public RecyclerDataAdapter(List<Iniciativa> listData){
         this.listData = listData;
     }
 
-    public RecyclerDataAdapter(RealmResults<Iniciativa> listData, OnItemClickListener listener){
+    public RecyclerDataAdapter(List<Iniciativa> listData, OnItemClickListener listener){
         this.listData = listData;
         this.itemListener = listener;
     }
@@ -62,7 +65,11 @@ public class RecyclerDataAdapter extends RecyclerView.Adapter<RecyclerDataAdapte
         public void asignData(Iniciativa iniciativa, final OnItemClickListener onItemClickListener) {
             dataTextTitulo.setText(iniciativa.getNombre());
             dataTextDescripcion.setText(iniciativa.getProducto_final());
-            dataImage.setImageResource(iniciativa.getImagen());
+
+            Context context = itemView.getContext();
+            String nombreImagen = iniciativa.getImagen();
+            int idImagen = context.getResources().getIdentifier(nombreImagen, "drawable", context.getPackageName());
+            dataImage.setImageResource(idImagen);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

@@ -1,14 +1,16 @@
 package com.ander.aplicacioniniciativas.Models;
 
+import java.util.List;
+
 import io.realm.RealmList;
 import io.realm.RealmObject;
 
-public class Ods extends RealmObject {
+public class Ods {
     private int idOds;
     private String nombre;
-    private RealmList<Dimension> dimension;
+    private List<Dimension> dimension;
 
-    public Ods(int idOds, String nombre, RealmList<Dimension> dimension) {
+    public Ods(int idOds, String nombre, List<Dimension> dimension) {
         this.idOds = idOds;
         this.nombre = nombre;
         this.dimension = dimension;
@@ -31,11 +33,11 @@ public class Ods extends RealmObject {
         this.nombre = nombre;
     }
 
-    public RealmList<Dimension> getDimension() {
+    public List<Dimension> getDimension() {
         return dimension;
     }
 
-    public void setDimension(RealmList<Dimension> dimension) {
+    public void setDimension(List<Dimension> dimension) {
         this.dimension = dimension;
     }
 }
