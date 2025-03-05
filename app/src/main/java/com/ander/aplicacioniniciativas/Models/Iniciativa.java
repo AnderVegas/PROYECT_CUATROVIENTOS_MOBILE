@@ -19,13 +19,13 @@ public class Iniciativa extends RealmObject {
     private String fechaFin;
     private boolean eliminado;
     private boolean innovador;
-    private String imagen;
+    private int imagen;
     private RealmList<Meta> metas;
     private RealmList<Profesor> profesores;
     private RealmList<EntidadExterna> entidades_externas;
     private RealmList<Modulo> modulos;
 
-    public Iniciativa(int id, String tipo, String horas, String nombre, String producto_final, String fechaRegistro, String fechaInicio, String fechaFin, boolean eliminado, boolean innovador, String imagen, RealmList<Meta> metas, RealmList<Profesor> profesores, RealmList<EntidadExterna> entidades_externas, RealmList<Modulo> modulos) {
+    public Iniciativa(int id, String tipo, String horas, String nombre, String producto_final, String fechaRegistro, String fechaInicio, String fechaFin, boolean eliminado, boolean innovador, int imagen, RealmList<Meta> metas, RealmList<Profesor> profesores, RealmList<EntidadExterna> entidades_externas, RealmList<Modulo> modulos) {
         this.id = id;
         this.tipo = tipo;
         this.horas = horas;
@@ -125,11 +125,11 @@ public class Iniciativa extends RealmObject {
         this.innovador = innovador;
     }
 
-    public String getImagen() {
+    public int getImagen() {
         return imagen;
     }
 
-    public void setImagen(String imagen) {
+    public void setImagen(int imagen) {
         this.imagen = imagen;
     }
 
