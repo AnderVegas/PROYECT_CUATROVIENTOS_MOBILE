@@ -1,6 +1,8 @@
 package com.ander.aplicacioniniciativas.Models;
 
-public class Profesor {
+import io.realm.RealmObject;
+
+public class Profesor extends RealmObject {
     private int idProfesor;
     private String nombre;
 

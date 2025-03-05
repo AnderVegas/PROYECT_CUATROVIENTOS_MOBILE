@@ -2,7 +2,13 @@ package com.ander.aplicacioniniciativas.Models;
 
 import java.util.List;
 
-public class Iniciativa {
+import io.realm.RealmList;
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
+
+
+public class Iniciativa extends RealmObject {
+    @PrimaryKey
     private int id;
     private String tipo;
     private String horas;
@@ -14,12 +20,12 @@ public class Iniciativa {
     private boolean eliminado;
     private boolean innovador;
     private String imagen;
-    private List<Meta> metas;
-    private List<Profesor> profesores;
-    private List<EntidadExterna> entidades_externas;
-    private List<Modulo> modulos;
+    private RealmList<Meta> metas;
+    private RealmList<Profesor> profesores;
+    private RealmList<EntidadExterna> entidades_externas;
+    private RealmList<Modulo> modulos;
 
-    public Iniciativa(int id, String tipo, String horas, String nombre, String producto_final, String fechaRegistro, String fechaInicio, String fechaFin, boolean eliminado, boolean innovador, String imagen, List<Meta> metas, List<Profesor> profesores, List<EntidadExterna> entidades_externas, List<Modulo> modulos) {
+    public Iniciativa(int id, String tipo, String horas, String nombre, String producto_final, String fechaRegistro, String fechaInicio, String fechaFin, boolean eliminado, boolean innovador, String imagen, RealmList<Meta> metas, RealmList<Profesor> profesores, RealmList<EntidadExterna> entidades_externas, RealmList<Modulo> modulos) {
         this.id = id;
         this.tipo = tipo;
         this.horas = horas;
@@ -36,6 +42,8 @@ public class Iniciativa {
         this.entidades_externas = entidades_externas;
         this.modulos = modulos;
     }
+
+    public Iniciativa(){}
 
     public int getId() {
         return id;
@@ -125,35 +133,35 @@ public class Iniciativa {
         this.imagen = imagen;
     }
 
-    public List<Meta> getMetas() {
+    public RealmList<Meta> getMetas() {
         return metas;
     }
 
-    public void setMetas(List<Meta> metas) {
+    public void setMetas(RealmList<Meta> metas) {
         this.metas = metas;
     }
 
-    public List<Profesor> getProfesores() {
+    public RealmList<Profesor> getProfesores() {
         return profesores;
     }
 
-    public void setProfesores(List<Profesor> profesores) {
+    public void setProfesores(RealmList<Profesor> profesores) {
         this.profesores = profesores;
     }
 
-    public List<EntidadExterna> getEntidades_externas() {
+    public RealmList<EntidadExterna> getEntidades_externas() {
         return entidades_externas;
     }
 
-    public void setEntidades_externas(List<EntidadExterna> entidades_externas) {
+    public void setEntidades_externas(RealmList<EntidadExterna> entidades_externas) {
         this.entidades_externas = entidades_externas;
     }
 
-    public List<Modulo> getModulos() {
+    public RealmList<Modulo> getModulos() {
         return modulos;
     }
 
-    public void setModulos(List<Modulo> modulos) {
+    public void setModulos(RealmList<Modulo> modulos) {
         this.modulos = modulos;
     }
 }

@@ -1,6 +1,8 @@
 package com.ander.aplicacioniniciativas.Models;
 
-public class EntidadExterna {
+import io.realm.RealmObject;
+
+public class EntidadExterna extends RealmObject {
     private int idEntidadExterna;
     private String nombre;
 
