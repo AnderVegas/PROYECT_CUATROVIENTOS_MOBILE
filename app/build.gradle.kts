@@ -4,7 +4,7 @@ plugins {
 
 android {
     namespace = "com.ander.aplicacioniniciativas"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.ander.aplicacioniniciativas"

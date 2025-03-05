@@ -1,233 +1,231 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-
-    <LinearLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#A5DEFF"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:padding="16dp"
-        tools:layout_editor_absoluteX="1dp"
-        tools:layout_editor_absoluteY="1dp">
-
-        <ImageView
-            android:id="@+id/imageCuatrovientos"
-            android:layout_width="150dp"
-            android:layout_height="50dp"
-            android:layout_marginEnd="16dp"
-            app:srcCompat="@drawable/logo4v_photoroom_1" />
-
+    tools:context=".Activities.ModificarActivity">
         <LinearLayout
-            android:layout_width="0dp"
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="right"
-            android:orientation="vertical">
+            android:background="#A5DEFF"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="16dp"
+            tools:layout_editor_absoluteX="1dp"
+            tools:layout_editor_absoluteY="1dp">
 
-            <TextView
-                android:id="@+id/textLetra"
-                android:layout_width="50dp"
+            <ImageView
+                android:id="@+id/imageCuatrovientos"
+                android:layout_width="150dp"
                 android:layout_height="50dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="10dp"
-                android:background="@drawable/circle_background"
+                android:layout_marginEnd="16dp"
+                app:srcCompat="@drawable/logo4v_photoroom_1" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textLetra"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@drawable/circle_background"
+                    android:gravity="center"
+                    android:text="m"
+                    android:textColor="@android:color/white"
+                    android:textSize="17dp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/linearLayoutCards"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:padding="3dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.692">
+
+            <LinearLayout
+                android:id="@+id/linearLayoutOpciones1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="m"
-                android:textColor="@android:color/white"
-                android:textSize="17dp"
-                android:textStyle="bold" />
+                android:orientation="horizontal"
+                android:padding="16dp">
 
-        </LinearLayout>
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:id="@+id/linearLayoutCards"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background=""
-        android:gravity="center"
-        android:orientation="vertical"
-        android:padding="3dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.692">
-
-        <LinearLayout
-            android:id="@+id/linearLayoutOpciones1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background=""
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:padding="16dp">
-
-            <!-- Primera Card -->
-            <androidx.cardview.widget.CardView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:background="@drawable/sombras_bordes"
-                app:cardElevation="6dp">
-
-                <LinearLayout
-                    android:layout_width="170dp"
+                <!-- Primera Card -->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:background="#AEE8EB"
-                    android:orientation="vertical"
-                    android:padding="16dp">
+                    android:layout_margin="8dp"
+                    android:background="@drawable/sombras_bordes"
+                    app:cardElevation="6dp">
 
-                    <ImageView
-                        android:id="@+id/imagenCrear"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:layout_marginBottom="8dp"
-                        tools:srcCompat="@drawable/anadir" />
-
-                    <TextView
-                        android:id="@+id/textCrear"
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="170dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="8dp"
-                        android:gravity="center"
-                        android:text="Crear iniciativa"
-                        android:textAlignment="center"
-                        android:textColor="@drawable/texto_principal"
-                        android:textSize="22sp"
-                        android:textStyle="bold" />
+                        android:gravity="center_horizontal"
+                        android:background="#AEE8EB"
+                        android:orientation="vertical"
+                        android:padding="16dp">
 
-                    <TextView
-                        android:id="@+id/descCrear"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="Añade una nueva iniciativa"
-                        android:textAlignment="center"
-                        android:textColor="@drawable/texto_secundario"
-                        android:textSize="14sp" />
+                        <ImageView
+                            android:id="@+id/imagenCrear"
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
+                            android:layout_marginBottom="8dp"
+                            tools:srcCompat="@drawable/anadir" />
 
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
+                        <TextView
+                            android:id="@+id/textCrear"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="8dp"
+                            android:gravity="center"
+                            android:text="Crear iniciativa"
+                            android:textAlignment="center"
+                            android:textColor="@drawable/texto_principal"
+                            android:textSize="22sp"
+                            android:textStyle="bold" />
 
-            <!-- Segunda Card -->
-            <androidx.cardview.widget.CardView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_margin="8dp"
-                android:background="@drawable/sombras_bordes"
-                app:cardElevation="6dp">
+                        <TextView
+                            android:id="@+id/descCrear"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="Añade una nueva iniciativa"
+                            android:textAlignment="center"
+                            android:textColor="@drawable/texto_secundario"
+                            android:textSize="14sp" />
 
-                <LinearLayout
-                    android:layout_width="170dp"
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <!-- Segunda Card -->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:gravity="center_horizontal"
-                    android:background="#ACEB9F"
-                    android:orientation="vertical"
-                    android:padding="16dp">
+                    android:layout_margin="8dp"
+                    android:background="@drawable/sombras_bordes"
+                    app:cardElevation="6dp">
 
-                    <ImageView
-                        android:id="@+id/imagenActualizar"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:layout_marginBottom="8dp"
-                        tools:srcCompat="@drawable/actualizar" />
+                    <LinearLayout
+                        android:layout_width="170dp"
+                        android:layout_height="match_parent"
+                        android:gravity="center_horizontal"
+                        android:background="#ACEB9F"
+                        android:orientation="vertical"
+                        android:padding="16dp">
 
-                    <TextView
-                        android:id="@+id/textActualizar"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="8dp"
-                        android:gravity="center"
-                        android:text="Actualizar iniciativa"
-                        android:textAlignment="center"
-                        android:textColor="@drawable/texto_principal"
-                        android:textSize="22sp"
-                        android:textStyle="bold" />
+                        <ImageView
+                            android:id="@+id/imagenActualizar"
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
+                            android:layout_marginBottom="8dp"
+                            tools:srcCompat="@drawable/actualizar" />
 
-                    <TextView
-                        android:id="@+id/descActualizar"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="Actualiza los campos de una iniciativa"
-                        android:textAlignment="center"
-                        android:textColor="@drawable/texto_secundario"
-                        android:textSize="14sp" />
+                        <TextView
+                            android:id="@+id/textActualizar"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="8dp"
+                            android:gravity="center"
+                            android:text="Actualizar iniciativa"
+                            android:textAlignment="center"
+                            android:textColor="@drawable/texto_principal"
+                            android:textSize="22sp"
+                            android:textStyle="bold" />
 
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
+                        <TextView
+                            android:id="@+id/descActualizar"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="Actualiza los campos de una iniciativa"
+                            android:textAlignment="center"
+                            android:textColor="@drawable/texto_secundario"
+                            android:textSize="14sp" />
 
-        </LinearLayout>
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
 
-        <LinearLayout
-            android:id="@+id/linearLayoutOpciones"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background=""
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:padding="16dp">
+            </LinearLayout>
 
-
-            <!-- Segunda Card -->
-            <androidx.cardview.widget.CardView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:id="@+id/linearLayoutOpciones"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:background="@drawable/sombras_bordes"
-                app:cardElevation="6dp">
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="16dp">
 
-                <LinearLayout
-                    android:layout_width="170dp"
+
+                <!-- Segunda Card -->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:orientation="vertical"
-                    android:background="#EAA19A"
-                    android:padding="16dp">
+                    android:layout_margin="8dp"
+                    android:background="@drawable/sombras_bordes"
+                    app:cardElevation="6dp">
 
-                    <ImageView
-                        android:id="@+id/imagenEliminar"
-                        android:layout_width="100dp"
-                        android:layout_height="100dp"
-                        android:layout_marginBottom="8dp"
-                        tools:srcCompat="@drawable/eliminar" />
-
-                    <TextView
-                        android:id="@+id/textEliminar"
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="170dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="8dp"
-                        android:gravity="center"
-                        android:text="Eliminar iniciativa"
-                        android:textAlignment="center"
-                        android:textColor="@drawable/texto_principal"
-                        android:textSize="22sp"
-                        android:textStyle="bold" />
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical"
+                        android:background="#EAA19A"
+                        android:padding="16dp">
 
-                    <TextView
-                        android:id="@+id/descEliminar"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:text="Elimina una iniciativa existente"
-                        android:textAlignment="center"
-                        android:textColor="@drawable/texto_secundario"
-                        android:textSize="14sp" />
+                        <ImageView
+                            android:id="@+id/imagenEliminar"
+                            android:layout_width="100dp"
+                            android:layout_height="100dp"
+                            android:layout_marginBottom="8dp"
+                            tools:srcCompat="@drawable/eliminar" />
 
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
+                        <TextView
+                            android:id="@+id/textEliminar"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="8dp"
+                            android:gravity="center"
+                            android:text="Eliminar iniciativa"
+                            android:textAlignment="center"
+                            android:textColor="@drawable/texto_principal"
+                            android:textSize="22sp"
+                            android:textStyle="bold" />
 
+                        <TextView
+                            android:id="@+id/descEliminar"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:text="Elimina una iniciativa existente"
+                            android:textAlignment="center"
+                            android:textColor="@drawable/texto_secundario"
+                            android:textSize="14sp" />
+
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+            </LinearLayout>
         </LinearLayout>
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>

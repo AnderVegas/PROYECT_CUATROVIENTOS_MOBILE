@@ -16,6 +16,7 @@ import com.ander.aplicacioniniciativas.R;
 public class MainActivity extends AppCompatActivity {
 
     View layoutIniciativas;
+    View layoutModificar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,12 +30,21 @@ public class MainActivity extends AppCompatActivity {
         });
 
         layoutIniciativas = findViewById(R.id.layoutButtonIniciativas);
+        layoutModificar = findViewById(R.id.layoutButtonModificar);
 
         layoutIniciativas.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Abrir ActivityIniciativas
                 Intent intent = new Intent(MainActivity.this, IniciativasActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        layoutModificar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, ModificarActivity.class);
                 startActivity(intent);
             }
         });
