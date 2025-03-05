@@ -48,12 +48,9 @@ public class IniciativasActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<Iniciativa>> call, Throwable t) {
-                Log.e("DogApi", "Error en la llamada", t);
+                Log.e("Agenda2030CuatrovientosAPI", "Error en la llamada", t);
             }
         });
     }
-
-
-
 
 }

@@ -1,15 +1,11 @@
 package com.ander.aplicacioniniciativas.Models;
 
-import java.util.List;
-
-import io.realm.RealmObject;
-
 public class Modulo {
     private int idModulo;
     private String nombre;
-    private List<Curso> curso;
+    private Curso curso;
 
-    public Modulo(int idModulo, String nombre, List<Curso> curso) {
+    public Modulo(int idModulo, String nombre, Curso curso) {
         this.idModulo = idModulo;
         this.nombre = nombre;
         this.curso = curso;
@@ -33,11 +29,11 @@ public class Modulo {
         this.nombre = nombre;
     }
 
-    public List<Curso> getCurso() {
+    public Curso getCurso() {
         return curso;
     }
 
-    public void setCurso(List<Curso> curso) {
+    public void setCurso(Curso curso) {
         this.curso = curso;
     }
 }

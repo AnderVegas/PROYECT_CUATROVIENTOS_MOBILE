@@ -8,9 +8,9 @@ import io.realm.RealmObject;
 public class Ods {
     private int idOds;
     private String nombre;
-    private List<Dimension> dimension;
+    private Dimension dimension;
 
-    public Ods(int idOds, String nombre, List<Dimension> dimension) {
+    public Ods(int idOds, String nombre, Dimension dimension) {
         this.idOds = idOds;
         this.nombre = nombre;
         this.dimension = dimension;
@@ -33,11 +33,11 @@ public class Ods {
         this.nombre = nombre;
     }
 
-    public List<Dimension> getDimension() {
+    public Dimension getDimension() {
         return dimension;
     }
 
-    public void setDimension(List<Dimension> dimension) {
+    public void setDimension(Dimension dimension) {
         this.dimension = dimension;
     }
 }

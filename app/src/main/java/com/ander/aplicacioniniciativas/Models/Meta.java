@@ -5,9 +5,9 @@ import java.util.List;
 public class Meta {
     private int idMetas;
     private String descripcion;
-    private List<Ods> ods;
+    private Ods ods;
 
-    public Meta(int idMetas, String descripcion, List<Ods> ods) {
+    public Meta(int idMetas, String descripcion, Ods ods) {
         this.idMetas = idMetas;
         this.descripcion = descripcion;
         this.ods = ods;
@@ -31,11 +31,11 @@ public class Meta {
         this.descripcion = descripcion;
     }
 
-    public List<Ods> getOds() {
+    public Ods getOds() {
         return ods;
     }
 
-    public void setOds(List<Ods> ods) {
+    public void setOds(Ods ods) {
         this.ods = ods;
     }
 }

@@ -15,11 +15,8 @@ import com.ander.aplicacioniniciativas.R;
 
 import java.util.List;
 
-import io.realm.RealmResults;
-
 public class RecyclerDataAdapter extends RecyclerView.Adapter<RecyclerDataAdapter.RecyclerDataHolder>{
 
-    View view;
     private List<Iniciativa> listData;
     private OnItemClickListener itemListener;
 
@@ -27,16 +24,11 @@ public class RecyclerDataAdapter extends RecyclerView.Adapter<RecyclerDataAdapte
         this.listData = listData;
     }
 
-    public RecyclerDataAdapter(List<Iniciativa> listData, OnItemClickListener listener){
-        this.listData = listData;
-        this.itemListener = listener;
-    }
-
     @NonNull
     @Override
     public RecyclerDataHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        view = LayoutInflater.from(parent.getContext()).inflate(R.layout.iniciativa_item,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.iniciativa_item,parent,false);
         return new RecyclerDataHolder(view);
     }
 
@@ -51,9 +43,9 @@ public class RecyclerDataAdapter extends RecyclerView.Adapter<RecyclerDataAdapte
     }
 
     public class RecyclerDataHolder extends RecyclerView.ViewHolder {
-        TextView dataTextTitulo;
-        TextView dataTextDescripcion;
-        ImageView dataImage;
+        private TextView dataTextTitulo;
+        private TextView dataTextDescripcion;
+        private ImageView dataImage;
 
         public RecyclerDataHolder(@NonNull View itemView) {
             super(itemView);
