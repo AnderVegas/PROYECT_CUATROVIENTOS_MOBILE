@@ -1,14 +1,13 @@
 package com.ander.aplicacioniniciativas.Models;
 
-import io.realm.RealmList;
-import io.realm.RealmObject;
+import java.util.List;
 
-public class Meta extends RealmObject {
+public class Meta {
     private int idMetas;
     private String descripcion;
-    private RealmList<Ods> ods;
+    private Ods ods;
 
-    public Meta(int idMetas, String descripcion, RealmList<Ods> ods) {
+    public Meta(int idMetas, String descripcion, Ods ods) {
         this.idMetas = idMetas;
         this.descripcion = descripcion;
         this.ods = ods;
@@ -32,11 +31,11 @@ public class Meta extends RealmObject {
         this.descripcion = descripcion;
     }
 
-    public RealmList<Ods> getOds() {
+    public Ods getOds() {
         return ods;
     }
 
-    public void setOds(RealmList<Ods> ods) {
+    public void setOds(Ods ods) {
         this.ods = ods;
     }
 }

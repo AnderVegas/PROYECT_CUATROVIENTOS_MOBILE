@@ -1,5 +1,6 @@
 package com.ander.aplicacioniniciativas.Adapters;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,28 +13,22 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.ander.aplicacioniniciativas.Models.Iniciativa;
 import com.ander.aplicacioniniciativas.R;
 
-import io.realm.RealmResults;
+import java.util.List;
 
 public class RecyclerDataAdapter extends RecyclerView.Adapter<RecyclerDataAdapter.RecyclerDataHolder>{
 
-    View view;
-    private RealmResults<Iniciativa> listData;
+    private List<Iniciativa> listData;
     private OnItemClickListener itemListener;
 
-    public RecyclerDataAdapter(RealmResults<Iniciativa> listData){
+    public RecyclerDataAdapter(List<Iniciativa> listData){
         this.listData = listData;
-    }
-
-    public RecyclerDataAdapter(RealmResults<Iniciativa> listData, OnItemClickListener listener){
-        this.listData = listData;
-        this.itemListener = listener;
     }
 
     @NonNull
     @Override
     public RecyclerDataHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        view = LayoutInflater.from(parent.getContext()).inflate(R.layout.iniciativa_item,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.iniciativa_item,parent,false);
         return new RecyclerDataHolder(view);
     }
 
@@ -48,9 +43,9 @@ public class RecyclerDataAdapter extends RecyclerView.Adapter<RecyclerDataAdapte
     }
 
     public class RecyclerDataHolder extends RecyclerView.ViewHolder {
-        TextView dataTextTitulo;
-        TextView dataTextDescripcion;
-        ImageView dataImage;
+        private TextView dataTextTitulo;
+        private TextView dataTextDescripcion;
+        private ImageView dataImage;
 
         public RecyclerDataHolder(@NonNull View itemView) {
             super(itemView);
@@ -62,7 +57,11 @@ public class RecyclerDataAdapter extends RecyclerView.Adapter<RecyclerDataAdapte
         public void asignData(Iniciativa iniciativa, final OnItemClickListener onItemClickListener) {
             dataTextTitulo.setText(iniciativa.getNombre());
             dataTextDescripcion.setText(iniciativa.getProducto_final());
-            dataImage.setImageResource(iniciativa.getImagen());
+
+            Context context = itemView.getContext();
+            String nombreImagen = iniciativa.getImagen();
+            int idImagen = context.getResources().getIdentifier(nombreImagen, "drawable", context.getPackageName());
+            dataImage.setImageResource(idImagen);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
