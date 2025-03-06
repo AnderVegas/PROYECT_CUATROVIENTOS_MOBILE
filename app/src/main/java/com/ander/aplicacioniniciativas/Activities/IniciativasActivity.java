@@ -28,7 +28,7 @@ public class IniciativasActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_iniciativas);
         CutrovientosIniciativasService apiService = ApiClient.getIniciativasService();
-        Call<List<Iniciativa>> call = apiService.getIniciativas();
+        Call<List<Iniciativa>> call = apiService.getIniciativas(false);
 
         recyclerView = (RecyclerView)  findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
