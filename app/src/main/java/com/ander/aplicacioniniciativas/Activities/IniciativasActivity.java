@@ -34,6 +34,8 @@ public class IniciativasActivity extends AppCompatActivity {
     private List<Iniciativa> iniciativas;
     private List<Curso> cursosList;
     private List<Ods> odsList;
+    private Ods odsSeleccionado;
+    private Curso cursoSeleccionado;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,9 +71,7 @@ public class IniciativasActivity extends AppCompatActivity {
 
 
 
-
-
-        // Manejo del Spinner para Cursos
+        // Iniciar Spinner para Cursos
         Spinner spinnerCursos = findViewById(R.id.dropDownCursos);
         CutrovientosIniciativasService apiServiceCursos = ApiClient.getIniciativasService();
         Call<List<Curso>> callCursos = apiServiceCursos.getCursos();
@@ -101,40 +101,7 @@ public class IniciativasActivity extends AppCompatActivity {
             }
         });
 
-        spinnerCursos.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                Curso selectedCurso = (Curso) parentView.getItemAtPosition(position);
-
-                if (selectedCurso != null && selectedCurso.getIdCurso() != 0) {
-                    List<Iniciativa> iniciativasFiltradas = filtrarIniciativasPorCurso(iniciativas, selectedCurso);
-                    if (iniciativasFiltradas.isEmpty()) {
-                        Log.d("Iniciativas", "No se encontraron iniciativas para este curso.");
-                    }
-                    adapter = new RecyclerDataAdapter(iniciativasFiltradas);
-                    recyclerView.setAdapter(adapter);
-                } else {
-                    adapter = new RecyclerDataAdapter(iniciativas);
-                    recyclerView.setAdapter(adapter);
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parentView) {
-                adapter = new RecyclerDataAdapter(iniciativas);
-                recyclerView.setAdapter(adapter);
-            }
-        });
-
-
-
-
-
-
-
-
-
-        // Manejo del Spinner para Ods
+        // Iniciar Spinner para Ods
         Spinner spinnerOds = findViewById(R.id.dropDownODS);
         CutrovientosIniciativasService apiServiceOds = ApiClient.getIniciativasService();
         Call<List<Ods>> callOds = apiServiceOds.getOds();
@@ -164,13 +131,46 @@ public class IniciativasActivity extends AppCompatActivity {
             }
         });
 
+
+
+
+
+
+
+        // Spinner de curso
+        spinnerCursos.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                cursoSeleccionado = (Curso) parentView.getItemAtPosition(position);
+
+                if (cursoSeleccionado != null && cursoSeleccionado.getIdCurso() != 0) {
+                    List<Iniciativa> iniciativasFiltradas = filtrarIniciativas(iniciativas, cursoSeleccionado, odsSeleccionado);
+                    if (iniciativasFiltradas.isEmpty()) {
+                        Log.d("Iniciativas", "No se encontraron iniciativas para este curso.");
+                    }
+                    adapter = new RecyclerDataAdapter(iniciativasFiltradas);
+                    recyclerView.setAdapter(adapter);
+                } else {
+                    adapter = new RecyclerDataAdapter(iniciativas);
+                    recyclerView.setAdapter(adapter);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                adapter = new RecyclerDataAdapter(iniciativas);
+                recyclerView.setAdapter(adapter);
+            }
+        });
+
+        // Spinner de Ods
         spinnerOds.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                Ods selectedOds = (Ods) parentView.getItemAtPosition(position);
+                odsSeleccionado = (Ods) parentView.getItemAtPosition(position);
 
-                if (selectedOds != null && selectedOds.getIdOds() != 0) {
-                    List<Iniciativa> iniciativasFiltradas = filtrarIniciativasPorOds(iniciativas, selectedOds);
+                if (odsSeleccionado != null && odsSeleccionado.getIdOds() != 0) {
+                    List<Iniciativa> iniciativasFiltradas = filtrarIniciativas(iniciativas, cursoSeleccionado, odsSeleccionado);
                     if (iniciativasFiltradas.isEmpty()) {
                         Log.d("Iniciativas", "No se encontraron iniciativas para este ods.");
                     }
@@ -195,41 +195,41 @@ public class IniciativasActivity extends AppCompatActivity {
 
 
 
-    // Filtrar iniciativas por el curso seleccionado
-    private List<Iniciativa> filtrarIniciativasPorCurso(List<Iniciativa> todasLasIniciativas, Curso cursoSeleccionado) {
-        List<Iniciativa> iniciativasFiltradas = new ArrayList<>();
 
-            for (Iniciativa iniciativa : todasLasIniciativas) {
-                boolean tieneModuloDelCurso = false;
-                for (Modulo modulo : iniciativa.getModulos()) {
-                    if (modulo.getCurso() != null && modulo.getCurso().getIdCurso() == cursoSeleccionado.getIdCurso()) {
-                        tieneModuloDelCurso = true;
-                        break;
-                    }
-                }
-                if (tieneModuloDelCurso) {
-                    iniciativasFiltradas.add(iniciativa);
-                }
-            }
+    // Filtrar iniciativas
+    private List<Iniciativa> filtrarIniciativas(List<Iniciativa> todasLasIniciativas, Curso cursoSeleccionado, Ods odsSeleccionado) {
+        if (todasLasIniciativas == null || todasLasIniciativas.isEmpty()) {
+            return new ArrayList<>();
+        }
 
-        return iniciativasFiltradas;
-    }
-
-
-
-    // Filtrar iniciativas por el ods seleccionado
-    private List<Iniciativa> filtrarIniciativasPorOds(List<Iniciativa> todasLasIniciativas, Ods odsSeleccionado) {
         List<Iniciativa> iniciativasFiltradas = new ArrayList<>();
 
         for (Iniciativa iniciativa : todasLasIniciativas) {
-            boolean tieneMetaDelOds = false;
-            for (Meta meta : iniciativa.getMetas()) {
-                if (meta.getOds() != null && meta.getOds().getIdOds() == odsSeleccionado.getIdOds()) {
-                    tieneMetaDelOds = true;
-                    break;
+            boolean cumpleCurso = (cursoSeleccionado == null || cursoSeleccionado.getIdCurso() == 0);
+            boolean cumpleOds = (odsSeleccionado == null || odsSeleccionado.getIdOds() == 0);
+
+            // Verificar si cumple con el filtro de curso
+            if (!cumpleCurso) {
+                for (Modulo modulo : iniciativa.getModulos()) {
+                    if (modulo.getCurso() != null && modulo.getCurso().getIdCurso() == cursoSeleccionado.getIdCurso()) {
+                        cumpleCurso = true;
+                        break;
+                    }
                 }
             }
-            if (tieneMetaDelOds) {
+
+            // Verificar si cumple con el filtro de ODS
+            if (!cumpleOds) {
+                for (Meta meta : iniciativa.getMetas()) {
+                    if (meta.getOds() != null && meta.getOds().getIdOds() == odsSeleccionado.getIdOds()) {
+                        cumpleOds = true;
+                        break;
+                    }
+                }
+            }
+
+            // Si cumple al menos un criterio (según los filtros aplicados), se agrega a la lista
+            if (cumpleCurso && cumpleOds) {
                 iniciativasFiltradas.add(iniciativa);
             }
         }
