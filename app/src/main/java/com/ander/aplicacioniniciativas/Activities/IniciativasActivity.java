@@ -1,10 +1,14 @@
 package com.ander.aplicacioniniciativas.Activities;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.SearchView;
 import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,8 +25,13 @@ import com.ander.aplicacioniniciativas.Models.Modulo;
 import com.ander.aplicacioniniciativas.Models.Ods;
 import com.ander.aplicacioniniciativas.R;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -36,6 +45,10 @@ public class IniciativasActivity extends AppCompatActivity {
     private List<Ods> odsList;
     private Ods odsSeleccionado;
     private Curso cursoSeleccionado;
+    private String textoBusqueda = "";
+    private String fechaInicio = "";
+    private String fechaFin = "";
+    private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +58,10 @@ public class IniciativasActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+        SearchView searchView = findViewById(R.id.searchView);
+        EditText editFechaInicio = findViewById(R.id.editFechaInicio);
+        EditText editFechaFin = findViewById(R.id.editFechaFin);
+
         // Obtener las iniciativas desde la API
         CutrovientosIniciativasService apiService = ApiClient.getIniciativasService();
         Call<List<Iniciativa>> call = apiService.getIniciativas(false);
@@ -53,189 +70,146 @@ public class IniciativasActivity extends AppCompatActivity {
             public void onResponse(Call<List<Iniciativa>> call, Response<List<Iniciativa>> response) {
                 if (response.isSuccessful()) {
                     iniciativas = response.body();
-                    adapter = new RecyclerDataAdapter(iniciativas);
-                    recyclerView.setAdapter(adapter);
+                    actualizarListaFiltrada();
                 } else {
-                    Log.e("Agenda2030CuatrovientosAPI", "Error en la respuesta: " + response.code());
+                    Log.e("API", "Error en la respuesta: " + response.code());
                 }
             }
 
             @Override
             public void onFailure(Call<List<Iniciativa>> call, Throwable t) {
-                Log.e("Agenda2030CuatrovientosAPI", "Error en la llamada", t);
+                Log.e("API", "Error en la llamada", t);
             }
         });
 
+        // Configuración de los spinners
+        configurarSpinners();
 
+        // Configuración del buscador
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
 
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                textoBusqueda = newText.toLowerCase();
+                actualizarListaFiltrada();
+                return true;
+            }
+        });
 
+        // Configurar el filtro de fechas
+        editFechaInicio.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                fechaInicio = s.toString();
+                actualizarListaFiltrada();
+            }
 
-        // Iniciar Spinner para Cursos
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
+
+        editFechaFin.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                fechaFin = s.toString();
+                actualizarListaFiltrada();
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
+    }
+
+    private void configurarSpinners() {
         Spinner spinnerCursos = findViewById(R.id.dropDownCursos);
-        CutrovientosIniciativasService apiServiceCursos = ApiClient.getIniciativasService();
-        Call<List<Curso>> callCursos = apiServiceCursos.getCursos();
+        Spinner spinnerOds = findViewById(R.id.dropDownODS);
 
+        // Configuración del Spinner Cursos
+        CutrovientosIniciativasService apiService = ApiClient.getIniciativasService();
+        Call<List<Curso>> callCursos = apiService.getCursos();
         callCursos.enqueue(new Callback<List<Curso>>() {
             @Override
             public void onResponse(Call<List<Curso>> call, Response<List<Curso>> response) {
                 if (response.isSuccessful()) {
                     cursosList = response.body();
-
-                    // Añadir un curso en blanco al inicio de la lista
                     List<Curso> cursosConVacio = new ArrayList<>();
-                    cursosConVacio.add(new Curso(0, "Todos los cursos")); // "Curso vacío"
+                    cursosConVacio.add(new Curso(0, "Todos los cursos"));
                     cursosConVacio.addAll(cursosList);
-
                     ArrayAdapter<Curso> spinnerAdapter = new ArrayAdapter<>(IniciativasActivity.this, android.R.layout.simple_spinner_item, cursosConVacio);
                     spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     spinnerCursos.setAdapter(spinnerAdapter);
-                } else {
-                    Log.e("Agenda2030CuatrovientosAPI", "Error en la respuesta de Cursos: " + response.code());
                 }
             }
 
             @Override
             public void onFailure(Call<List<Curso>> call, Throwable t) {
-                Log.e("Agenda2030CuatrovientosAPI", "Error en la llamada a Cursos", t);
+                Log.e("API", "Error en la llamada a Cursos", t);
             }
         });
 
-        // Iniciar Spinner para Ods
-        Spinner spinnerOds = findViewById(R.id.dropDownODS);
-        CutrovientosIniciativasService apiServiceOds = ApiClient.getIniciativasService();
-        Call<List<Ods>> callOds = apiServiceOds.getOds();
-
+        // Configuración del Spinner ODS
+        Call<List<Ods>> callOds = apiService.getOds();
         callOds.enqueue(new Callback<List<Ods>>() {
             @Override
             public void onResponse(Call<List<Ods>> call, Response<List<Ods>> response) {
                 if (response.isSuccessful()) {
                     odsList = response.body();
-
-                    // Añadir un ods en blanco al inicio de la lista
                     List<Ods> odsConVacio = new ArrayList<>();
-                    odsConVacio.add(new Ods(0, "Todos los ods")); // "Ods vacío"
+                    odsConVacio.add(new Ods(0, "Todos los ODS"));
                     odsConVacio.addAll(odsList);
-
                     ArrayAdapter<Ods> spinnerAdapter = new ArrayAdapter<>(IniciativasActivity.this, android.R.layout.simple_spinner_item, odsConVacio);
                     spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                     spinnerOds.setAdapter(spinnerAdapter);
-                } else {
-                    Log.e("Agenda2030CuatrovientosAPI", "Error en la respuesta de Ods: " + response.code());
                 }
             }
 
             @Override
             public void onFailure(Call<List<Ods>> call, Throwable t) {
-                Log.e("Agenda2030CuatrovientosAPI", "Error en la llamada a Ods", t);
-            }
-        });
-
-
-
-
-
-
-
-        // Spinner de curso
-        spinnerCursos.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                cursoSeleccionado = (Curso) parentView.getItemAtPosition(position);
-
-                if (cursoSeleccionado != null && cursoSeleccionado.getIdCurso() != 0) {
-                    List<Iniciativa> iniciativasFiltradas = filtrarIniciativas(iniciativas, cursoSeleccionado, odsSeleccionado);
-                    if (iniciativasFiltradas.isEmpty()) {
-                        Log.d("Iniciativas", "No se encontraron iniciativas para este curso.");
-                    }
-                    adapter = new RecyclerDataAdapter(iniciativasFiltradas);
-                    recyclerView.setAdapter(adapter);
-                } else {
-                    adapter = new RecyclerDataAdapter(iniciativas);
-                    recyclerView.setAdapter(adapter);
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parentView) {
-                adapter = new RecyclerDataAdapter(iniciativas);
-                recyclerView.setAdapter(adapter);
-            }
-        });
-
-        // Spinner de Ods
-        spinnerOds.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                odsSeleccionado = (Ods) parentView.getItemAtPosition(position);
-
-                if (odsSeleccionado != null && odsSeleccionado.getIdOds() != 0) {
-                    List<Iniciativa> iniciativasFiltradas = filtrarIniciativas(iniciativas, cursoSeleccionado, odsSeleccionado);
-                    if (iniciativasFiltradas.isEmpty()) {
-                        Log.d("Iniciativas", "No se encontraron iniciativas para este ods.");
-                    }
-                    adapter = new RecyclerDataAdapter(iniciativasFiltradas);
-                    recyclerView.setAdapter(adapter);
-                } else {
-                    adapter = new RecyclerDataAdapter(iniciativas);
-                    recyclerView.setAdapter(adapter);
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parentView) {
-                adapter = new RecyclerDataAdapter(iniciativas);
-                recyclerView.setAdapter(adapter);
+                Log.e("API", "Error en la llamada a ODS", t);
             }
         });
     }
 
-
-
-
-
-
-
-    // Filtrar iniciativas
-    private List<Iniciativa> filtrarIniciativas(List<Iniciativa> todasLasIniciativas, Curso cursoSeleccionado, Ods odsSeleccionado) {
-        if (todasLasIniciativas == null || todasLasIniciativas.isEmpty()) {
-            return new ArrayList<>();
-        }
+    private void actualizarListaFiltrada() {
+        if (iniciativas == null) return;
 
         List<Iniciativa> iniciativasFiltradas = new ArrayList<>();
 
-        for (Iniciativa iniciativa : todasLasIniciativas) {
-            boolean cumpleCurso = (cursoSeleccionado == null || cursoSeleccionado.getIdCurso() == 0);
-            boolean cumpleOds = (odsSeleccionado == null || odsSeleccionado.getIdOds() == 0);
+        for (Iniciativa iniciativa : iniciativas) {
+            boolean cumpleCurso = cursoSeleccionado == null || cursoSeleccionado.getIdCurso() == 0;
+            boolean cumpleOds = odsSeleccionado == null || odsSeleccionado.getIdOds() == 0;
+            boolean cumpleBusqueda = textoBusqueda.isEmpty() || iniciativa.getNombre().toLowerCase().contains(textoBusqueda);
+            boolean cumpleFecha = cumpleFiltroFecha(iniciativa.getFechaInicio(), iniciativa.getFechaFin());
 
-            // Verificar si cumple con el filtro de curso
-            if (!cumpleCurso) {
-                for (Modulo modulo : iniciativa.getModulos()) {
-                    if (modulo.getCurso() != null && modulo.getCurso().getIdCurso() == cursoSeleccionado.getIdCurso()) {
-                        cumpleCurso = true;
-                        break;
-                    }
-                }
-            }
-
-            // Verificar si cumple con el filtro de ODS
-            if (!cumpleOds) {
-                for (Meta meta : iniciativa.getMetas()) {
-                    if (meta.getOds() != null && meta.getOds().getIdOds() == odsSeleccionado.getIdOds()) {
-                        cumpleOds = true;
-                        break;
-                    }
-                }
-            }
-
-            // Si cumple al menos un criterio (según los filtros aplicados), se agrega a la lista
-            if (cumpleCurso && cumpleOds) {
+            if (cumpleCurso && cumpleOds && cumpleBusqueda && cumpleFecha) {
                 iniciativasFiltradas.add(iniciativa);
             }
         }
 
-        return iniciativasFiltradas;
+        adapter = new RecyclerDataAdapter(iniciativasFiltradas);
+        recyclerView.setAdapter(adapter);
     }
 
+    private boolean cumpleFiltroFecha(String fechaIni, String fechaFinal) {
+        try {
+            Date ini = fechaInicio.isEmpty() ? null : dateFormat.parse(fechaInicio);
+            Date fin = fechaFin.isEmpty() ? null : dateFormat.parse(fechaFin);
+            Date iniIniciativa = dateFormat.parse(fechaIni);
+            Date finIniciativa = dateFormat.parse(fechaFinal);
 
+            return (ini == null || !iniIniciativa.before(ini)) && (fin == null || !finIniciativa.after(fin));
+        } catch (ParseException e) {
+            return true;
+        }
+    }
 }

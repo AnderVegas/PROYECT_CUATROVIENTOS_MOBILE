@@ -1,5 +1,7 @@
 package com.ander.aplicacioniniciativas.Models;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
 public class Iniciativa {
@@ -7,15 +9,16 @@ public class Iniciativa {
     private String tipo;
     private String horas;
     private String nombre;
-
+    @SerializedName(value = "explicacion")
     private String producto_final;
-    private String fechaRegistro;
-
+    @SerializedName(value = "fecha_inicio")
     private String fechaInicio;
+    @SerializedName(value = "fecha_fin")
     private String fechaFin;
     private boolean eliminado;
     private boolean innovador;
     private String imagen;
+    private String fechaRegistro;
     private List<Meta> metas;
     private List<Profesor> profesores;
     private List<EntidadExterna> entidades_externas;
