@@ -1,11 +1,16 @@
 package com.ander.aplicacioniniciativas.Models;
 
-public class Modulo {
-    private int idModulo;
-    private String nombre;
-    private Curso curso;
+import com.google.gson.annotations.SerializedName;
 
-    public Modulo(int idModulo, String nombre, Curso curso) {
+public class Modulo {
+    @SerializedName(value = "id", alternate = {"idModulo"})
+    private int idModulo;
+    @SerializedName("clase")
+    private Curso curso;
+    @SerializedName("nombre")
+    private String nombre;
+
+    public Modulo(int idModulo, Curso curso, String nombre) {
         this.idModulo = idModulo;
         this.nombre = nombre;
         this.curso = curso;

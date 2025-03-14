@@ -7,8 +7,10 @@ public class Iniciativa {
     private String tipo;
     private String horas;
     private String nombre;
+
     private String producto_final;
     private String fechaRegistro;
+
     private String fechaInicio;
     private String fechaFin;
     private boolean eliminado;

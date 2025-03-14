@@ -28,5 +28,6 @@ public class Profesor {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
+
 }
 

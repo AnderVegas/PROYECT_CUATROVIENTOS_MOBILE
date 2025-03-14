@@ -40,5 +40,11 @@ public class Ods {
     public void setDimension(Dimension dimension) {
         this.dimension = dimension;
     }
+
+    @Override
+    public String toString() {
+        return nombre; // Esto hará que el Spinner muestre el nombre del ODS
+    }
+
 }
 

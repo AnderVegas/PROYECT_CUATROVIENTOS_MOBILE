@@ -1,7 +1,12 @@
 package com.ander.aplicacioniniciativas.Models;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Curso {
+    @SerializedName(value = "id", alternate = {"idClase"})
     private int idCurso;
+
+    @SerializedName("nombre")
     private String nombre;
 
     public Curso(int idCurso, String nombre) {
@@ -25,5 +30,11 @@ public class Curso {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+
+    @Override
+    public String toString(){
+        return nombre;
     }
 }
