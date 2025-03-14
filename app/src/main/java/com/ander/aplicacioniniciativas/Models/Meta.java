@@ -1,26 +1,28 @@
 package com.ander.aplicacioniniciativas.Models;
 
-import java.util.List;
+import com.google.gson.annotations.SerializedName;
 
 public class Meta {
-    private int idMetas;
+    private int idMeta;
     private String descripcion;
+
+    @SerializedName(value = "idOds", alternate = {"ods"})
     private Ods ods;
 
     public Meta(int idMetas, String descripcion, Ods ods) {
-        this.idMetas = idMetas;
+        this.idMeta = idMetas;
         this.descripcion = descripcion;
         this.ods = ods;
     }
 
     public Meta() {}
 
-    public int getIdMetas() {
-        return idMetas;
+    public int getIdMeta() {
+        return idMeta;
     }
 
-    public void setIdMetas(int idMetas) {
-        this.idMetas = idMetas;
+    public void setIdMeta(int idMeta) {
+        this.idMeta = idMeta;
     }
 
     public String getDescripcion() {

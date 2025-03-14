@@ -16,6 +16,7 @@ import com.ander.aplicacioniniciativas.App.ApiClient;
 import com.ander.aplicacioniniciativas.App.CutrovientosIniciativasService;
 import com.ander.aplicacioniniciativas.Models.Curso;
 import com.ander.aplicacioniniciativas.Models.Iniciativa;
+import com.ander.aplicacioniniciativas.Models.Meta;
 import com.ander.aplicacioniniciativas.Models.Modulo;
 import com.ander.aplicacioniniciativas.Models.Ods;
 import com.ander.aplicacioniniciativas.R;
@@ -32,6 +33,7 @@ public class IniciativasActivity extends AppCompatActivity {
     private RecyclerDataAdapter adapter;
     private List<Iniciativa> iniciativas;
     private List<Curso> cursosList;
+    private List<Ods> odsList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,7 +84,7 @@ public class IniciativasActivity extends AppCompatActivity {
 
                     // Añadir un curso en blanco al inicio de la lista
                     List<Curso> cursosConVacio = new ArrayList<>();
-                    cursosConVacio.add(new Curso(0, "Seleccione un curso")); // "Curso vacío"
+                    cursosConVacio.add(new Curso(0, "Todos los cursos")); // "Curso vacío"
                     cursosConVacio.addAll(cursosList);
 
                     ArrayAdapter<Curso> spinnerAdapter = new ArrayAdapter<>(IniciativasActivity.this, android.R.layout.simple_spinner_item, cursosConVacio);
@@ -123,6 +125,69 @@ public class IniciativasActivity extends AppCompatActivity {
                 recyclerView.setAdapter(adapter);
             }
         });
+
+
+
+
+
+
+
+
+
+        // Manejo del Spinner para Ods
+        Spinner spinnerOds = findViewById(R.id.dropDownODS);
+        CutrovientosIniciativasService apiServiceOds = ApiClient.getIniciativasService();
+        Call<List<Ods>> callOds = apiServiceOds.getOds();
+
+        callOds.enqueue(new Callback<List<Ods>>() {
+            @Override
+            public void onResponse(Call<List<Ods>> call, Response<List<Ods>> response) {
+                if (response.isSuccessful()) {
+                    odsList = response.body();
+
+                    // Añadir un ods en blanco al inicio de la lista
+                    List<Ods> odsConVacio = new ArrayList<>();
+                    odsConVacio.add(new Ods(0, "Todos los ods")); // "Ods vacío"
+                    odsConVacio.addAll(odsList);
+
+                    ArrayAdapter<Ods> spinnerAdapter = new ArrayAdapter<>(IniciativasActivity.this, android.R.layout.simple_spinner_item, odsConVacio);
+                    spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                    spinnerOds.setAdapter(spinnerAdapter);
+                } else {
+                    Log.e("Agenda2030CuatrovientosAPI", "Error en la respuesta de Ods: " + response.code());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Ods>> call, Throwable t) {
+                Log.e("Agenda2030CuatrovientosAPI", "Error en la llamada a Ods", t);
+            }
+        });
+
+        spinnerOds.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
+                Ods selectedOds = (Ods) parentView.getItemAtPosition(position);
+
+                if (selectedOds != null && selectedOds.getIdOds() != 0) {
+                    List<Iniciativa> iniciativasFiltradas = filtrarIniciativasPorOds(iniciativas, selectedOds);
+                    if (iniciativasFiltradas.isEmpty()) {
+                        Log.d("Iniciativas", "No se encontraron iniciativas para este ods.");
+                    }
+                    adapter = new RecyclerDataAdapter(iniciativasFiltradas);
+                    recyclerView.setAdapter(adapter);
+                } else {
+                    adapter = new RecyclerDataAdapter(iniciativas);
+                    recyclerView.setAdapter(adapter);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parentView) {
+                adapter = new RecyclerDataAdapter(iniciativas);
+                recyclerView.setAdapter(adapter);
+            }
+        });
     }
 
 
@@ -146,6 +211,28 @@ public class IniciativasActivity extends AppCompatActivity {
                     iniciativasFiltradas.add(iniciativa);
                 }
             }
+
+        return iniciativasFiltradas;
+    }
+
+
+
+    // Filtrar iniciativas por el ods seleccionado
+    private List<Iniciativa> filtrarIniciativasPorOds(List<Iniciativa> todasLasIniciativas, Ods odsSeleccionado) {
+        List<Iniciativa> iniciativasFiltradas = new ArrayList<>();
+
+        for (Iniciativa iniciativa : todasLasIniciativas) {
+            boolean tieneMetaDelOds = false;
+            for (Meta meta : iniciativa.getMetas()) {
+                if (meta.getOds() != null && meta.getOds().getIdOds() == odsSeleccionado.getIdOds()) {
+                    tieneMetaDelOds = true;
+                    break;
+                }
+            }
+            if (tieneMetaDelOds) {
+                iniciativasFiltradas.add(iniciativa);
+            }
+        }
 
         return iniciativasFiltradas;
     }

@@ -1,11 +1,14 @@
 package com.ander.aplicacioniniciativas.Models;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
 import io.realm.RealmList;
 import io.realm.RealmObject;
 
 public class Ods {
+    @SerializedName(value = "id", alternate = {"idOds"})
     private int idOds;
     private String nombre;
     private Dimension dimension;
@@ -16,6 +19,11 @@ public class Ods {
         this.dimension = dimension;
     }
     public Ods() {}
+
+    public Ods(int idOds, String nombre){
+        this.idOds = idOds;
+        this.nombre = nombre;
+    }
 
     public int getIdOds() {
         return idOds;
