@@ -18,7 +18,6 @@ import java.util.List;
 public class RecyclerDataAdapter extends RecyclerView.Adapter<RecyclerDataAdapter.RecyclerDataHolder>{
 
     private List<Iniciativa> listData;
-    private OnItemClickListener itemListener;
 
     public RecyclerDataAdapter(List<Iniciativa> listData){
         this.listData = listData;
@@ -27,14 +26,13 @@ public class RecyclerDataAdapter extends RecyclerView.Adapter<RecyclerDataAdapte
     @NonNull
     @Override
     public RecyclerDataHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.iniciativa_item,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.iniciativa_item, parent, false);
         return new RecyclerDataHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerDataHolder holder, int position) {
-        holder.asignData(listData.get(position),itemListener);
+        holder.asignData(listData.get(position));
     }
 
     @Override
@@ -46,33 +44,38 @@ public class RecyclerDataAdapter extends RecyclerView.Adapter<RecyclerDataAdapte
         private TextView dataTextTitulo;
         private TextView dataTextDescripcion;
         private ImageView dataImage;
+        private TextView dataTextClase;
+        private TextView dataTextFecha;
 
         public RecyclerDataHolder(@NonNull View itemView) {
             super(itemView);
             dataTextTitulo = itemView.findViewById(R.id.nombreIniciativa);
             dataTextDescripcion = itemView.findViewById(R.id.descIniciativa);
+            dataTextClase = itemView.findViewById(R.id.claseIniciativa);
+            dataTextFecha = itemView.findViewById(R.id.fechaIniciativa);
             dataImage = itemView.findViewById(R.id.imagenIniciativa);
         }
 
-        public void asignData(Iniciativa iniciativa, final OnItemClickListener onItemClickListener) {
+        public void asignData(Iniciativa iniciativa) {
             dataTextTitulo.setText(iniciativa.getNombre());
             dataTextDescripcion.setText(iniciativa.getProducto_final());
+
+            // Obtener el nombre del curso y quitar "Clase de " si ya está incluido
+            String curso = iniciativa.getModulos().get(0).getCurso().getNombre();
+            String prefix = "Clase de ";
+            if (curso.toLowerCase().startsWith(prefix.toLowerCase())) {
+                curso = curso.substring(prefix.length());
+            }
+            // Mostrar "Clase de" en la primera línea y el nombre de la asignatura en la segunda
+            dataTextClase.setText("Clase de\n" + curso);
+
+            // Mostrar solo la fecha (sin la hora)
+            dataTextFecha.setText(iniciativa.getFechaInicio().split(" ")[0]);
 
             Context context = itemView.getContext();
             String nombreImagen = iniciativa.getImagen();
             int idImagen = context.getResources().getIdentifier(nombreImagen, "drawable", context.getPackageName());
             dataImage.setImageResource(idImagen);
-
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    onItemClickListener.onItemClick(iniciativa, getAdapterPosition());
-                }
-            });
         }
     }
-    public interface OnItemClickListener{
-        void onItemClick(Iniciativa iniciativa, int adapterPosition);
-    }
-
 }

@@ -2,19 +2,19 @@ package com.ander.aplicacioniniciativas.Models;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Curso {
+public class Clase {
     @SerializedName(value = "id", alternate = {"idClase"})
     private int idCurso;
 
     @SerializedName("nombre")
     private String nombre;
 
-    public Curso(int idCurso, String nombre) {
+    public Clase(int idCurso, String nombre) {
         this.idCurso = idCurso;
         this.nombre = nombre;
     }
 
-    public Curso() {}
+    public Clase() {}
 
     public int getIdCurso() {
         return idCurso;
@@ -34,7 +34,7 @@ public class Curso {
 
 
     @Override
-    public String toString(){
+    public String toString() {
         return nombre;
     }
 }

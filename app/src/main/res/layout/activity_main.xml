@@ -12,8 +12,7 @@
         android:id="@+id/linearLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="1dp"
-        android:background="#A5DEFF"
+        android:background="#393d92"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:padding="16dp"
@@ -26,6 +25,7 @@
             android:layout_width="150dp"
             android:layout_height="50dp"
             android:layout_marginEnd="16dp"
+            android:background="#FFFFFF"
             app:srcCompat="@drawable/logo4v_photoroom_1" />
 
         <LinearLayout
@@ -101,6 +101,7 @@
                     android:id="@+id/layoutButtonIniciativas"
                     android:layout_width="170dp"
                     android:layout_height="wrap_content"
+                    android:background="#c2c4ed"
                     android:gravity="center_horizontal"
                     android:orientation="vertical"
                     android:padding="16dp">
@@ -110,7 +111,7 @@
                         android:layout_width="100dp"
                         android:layout_height="100dp"
                         android:layout_marginBottom="8dp"
-                        tools:srcCompat="@drawable/iniciativas" />
+                        app:srcCompat="@drawable/iniciativas" />
 
                     <TextView
                         android:id="@+id/textIniciativas"
@@ -150,6 +151,7 @@
                     android:id="@+id/layoutButtonModificar"
                     android:layout_width="170dp"
                     android:layout_height="match_parent"
+                    android:background="#c2c4ed"
                     android:gravity="center_horizontal"
                     android:orientation="vertical"
                     android:padding="16dp">
@@ -159,7 +161,7 @@
                         android:layout_width="100dp"
                         android:layout_height="100dp"
                         android:layout_marginBottom="8dp"
-                        tools:srcCompat="@drawable/modificar" />
+                        app:srcCompat="@drawable/modificar" />
 
                     <TextView
                         android:id="@+id/textModificar"
@@ -207,6 +209,7 @@
                 <LinearLayout
                     android:layout_width="170dp"
                     android:layout_height="wrap_content"
+                    android:background="#c2c4ed"
                     android:gravity="center_horizontal"
                     android:orientation="vertical"
                     android:padding="16dp">
@@ -216,7 +219,7 @@
                         android:layout_width="100dp"
                         android:layout_height="100dp"
                         android:layout_marginBottom="8dp"
-                        tools:srcCompat="@drawable/perfil" />
+                        app:srcCompat="@drawable/perfil" />
 
                     <TextView
                         android:id="@+id/textPerfil"
@@ -244,6 +247,7 @@
                 <LinearLayout
                     android:layout_width="170dp"
                     android:layout_height="wrap_content"
+                    android:background="#c2c4ed"
                     android:gravity="center_horizontal"
                     android:orientation="vertical"
                     android:padding="16dp">
@@ -253,7 +257,7 @@
                         android:layout_width="100dp"
                         android:layout_height="100dp"
                         android:layout_marginBottom="8dp"
-                        tools:srcCompat="@drawable/puerta" />
+                        app:srcCompat="@drawable/puerta" />
 
                     <TextView
                         android:id="@+id/textCerrarSesion"

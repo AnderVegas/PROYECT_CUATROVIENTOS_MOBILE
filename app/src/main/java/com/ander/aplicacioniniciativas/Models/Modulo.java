@@ -6,14 +6,14 @@ public class Modulo {
     @SerializedName(value = "id", alternate = {"idModulo"})
     private int idModulo;
     @SerializedName("clase")
-    private Curso curso;
+    private Clase clase;
     @SerializedName("nombre")
     private String nombre;
 
-    public Modulo(int idModulo, Curso curso, String nombre) {
+    public Modulo(int idModulo, Clase clase, String nombre) {
         this.idModulo = idModulo;
         this.nombre = nombre;
-        this.curso = curso;
+        this.clase = clase;
     }
 
     public Modulo() {}
@@ -34,12 +34,12 @@ public class Modulo {
         this.nombre = nombre;
     }
 
-    public Curso getCurso() {
-        return curso;
+    public Clase getCurso() {
+        return clase;
     }
 
-    public void setCurso(Curso curso) {
-        this.curso = curso;
+    public void setCurso(Clase clase) {
+        this.clase = clase;
     }
 }
 

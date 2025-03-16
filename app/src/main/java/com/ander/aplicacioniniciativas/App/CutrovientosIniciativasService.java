@@ -1,6 +1,6 @@
 package com.ander.aplicacioniniciativas.App;
 
-import com.ander.aplicacioniniciativas.Models.Curso;
+import com.ander.aplicacioniniciativas.Models.Clase;
 import com.ander.aplicacioniniciativas.Models.Iniciativa;
 import com.ander.aplicacioniniciativas.Models.Ods;
 
@@ -16,6 +16,6 @@ public interface CutrovientosIniciativasService {
     @GET("ods")
     Call<List<Ods>> getOds();
 
-    @GET("cursos")
-    Call<List<Curso>> getCursos();
+    @GET("clases")
+    Call<List<Clase>> getCursos();
 }

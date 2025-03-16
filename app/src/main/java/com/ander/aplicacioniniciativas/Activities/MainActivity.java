@@ -41,12 +41,5 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        layoutModificar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, ModificarActivity.class);
-                startActivity(intent);
-            }
-        });
     }
 }
