@@ -30,11 +30,11 @@ Sigue estos pasos para poner en marcha la aplicación en tu entorno de desarroll
 
 
    ```bash
-   git clone https://github.com/Foxriel13/ODS_PROYECT_CUATROVIENTOS_MOBILE.git
+   git clone --branch Entrega1 --single-branch https://github.com/Foxriel13/ODS_PROYECT_CUATROVIENTOS_MOBILE.git
    cd ODS_PROYECT_CUATROVIENTOS_MOBILE
    ```
 
-
+cd ruta-del-repositorio
 2. **Abrir en Android Studio**
 
 
