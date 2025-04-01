@@ -11,9 +11,9 @@ public class Ods {
     @SerializedName(value = "id", alternate = {"idOds"})
     private int idOds;
     private String nombre;
-    private Dimension dimension;
+    private String dimension;
 
-    public Ods(int idOds, String nombre, Dimension dimension) {
+    public Ods(int idOds, String nombre, String dimension) {
         this.idOds = idOds;
         this.nombre = nombre;
         this.dimension = dimension;
@@ -41,11 +41,11 @@ public class Ods {
         this.nombre = nombre;
     }
 
-    public Dimension getDimension() {
+    public String getDimension() {
         return dimension;
     }
 
-    public void setDimension(Dimension dimension) {
+    public void setDimension(String dimension) {
         this.dimension = dimension;
     }
 

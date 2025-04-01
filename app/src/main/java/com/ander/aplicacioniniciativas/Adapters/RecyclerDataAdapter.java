@@ -60,14 +60,20 @@ public class RecyclerDataAdapter extends RecyclerView.Adapter<RecyclerDataAdapte
             dataTextTitulo.setText(iniciativa.getNombre());
             dataTextDescripcion.setText(iniciativa.getProducto_final());
 
+            String curso = "";
             // Obtener el nombre del curso y quitar "Clase de " si ya está incluido
-            String curso = iniciativa.getModulos().get(0).getCurso().getNombre();
-            String prefix = "Clase de ";
-            if (curso.toLowerCase().startsWith(prefix.toLowerCase())) {
-                curso = curso.substring(prefix.length());
+            if (!iniciativa.getModulos().isEmpty() && iniciativa.getModulos().get(0).getCurso() != null) {
+                curso = iniciativa.getModulos().get(0).getCurso().getNombre();
+
+                String prefix = "Clase de ";
+                if (curso.toLowerCase().startsWith(prefix.toLowerCase())) {
+                    curso = curso.substring(prefix.length());
+                }
+                // Mostrar "Clase de" en la primera línea y el nombre de la asignatura en la segunda
+                dataTextClase.setText("Clase de\n" + curso);
+            } else {
+                curso = "Sin clase asignada";
             }
-            // Mostrar "Clase de" en la primera línea y el nombre de la asignatura en la segunda
-            dataTextClase.setText("Clase de\n" + curso);
 
             // Mostrar solo la fecha (sin la hora)
             dataTextFecha.setText(iniciativa.getFechaInicio().split(" ")[0]);

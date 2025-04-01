@@ -7,6 +7,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.SearchView;
 import android.widget.Spinner;
 import android.widget.AdapterView;
@@ -56,6 +58,10 @@ public class IniciativasActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
+        // Inicializar filtros para que aparezcan
+        LinearLayout searchAndFiltersLayout = findViewById(R.id.searchAndFiltersLayout);
+        ImageView imageLupa = findViewById(R.id.imageViewlupa);
+
         SearchView searchView = findViewById(R.id.searchView);
         EditText editFechaInicio = findViewById(R.id.editFechaInicio);
         EditText editFechaFin = findViewById(R.id.editFechaFin);
@@ -77,6 +83,19 @@ public class IniciativasActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<List<Iniciativa>> call, Throwable t) {
                 Log.e("API", "Error en la llamada", t);
+            }
+        });
+
+        // Configurar el botón para mostrar los filtros
+        imageLupa.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Cambiar la visibilidad de los filtros
+                if (searchAndFiltersLayout.getVisibility() == View.GONE) {
+                    searchAndFiltersLayout.setVisibility(View.VISIBLE);
+                } else {
+                    searchAndFiltersLayout.setVisibility(View.GONE);
+                }
             }
         });
 
@@ -165,6 +184,7 @@ public class IniciativasActivity extends AppCompatActivity {
         Spinner spinnerOds = findViewById(R.id.dropDownODS);
 
         CutrovientosIniciativasService apiService = ApiClient.getIniciativasService();
+
         Call<List<Clase>> callClases = apiService.getCursos();
         callClases.enqueue(new Callback<List<Clase>>() {
             @Override
@@ -194,7 +214,6 @@ public class IniciativasActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     odsList = response.body();
                     List<Ods> odsConVacio = new ArrayList<>();
-                    // ODS con id 0 se usa para representar "Todos"
                     odsConVacio.add(new Ods(0, "Todos los ODS"));
                     odsConVacio.addAll(odsList);
                     ArrayAdapter<Ods> spinnerAdapter = new ArrayAdapter<>(IniciativasActivity.this, android.R.layout.simple_spinner_item, odsConVacio);
@@ -221,7 +240,7 @@ public class IniciativasActivity extends AppCompatActivity {
             // Filtrado por fechas
             boolean cumpleFecha = cumpleFiltroFecha(iniciativa.getFechaInicio(), iniciativa.getFechaFin());
 
-            // Filtrado por Clase (suponiendo que el primer módulo indica la clase de la iniciativa)
+            // Filtrado por Clase
             boolean cumpleCurso = false;
             if (claseSeleccionado == null || claseSeleccionado.getIdCurso() == 0) {
                 cumpleCurso = true;
@@ -232,12 +251,13 @@ public class IniciativasActivity extends AppCompatActivity {
                 }
             }
 
-            // Filtrado por ODS (suponiendo que la iniciativa tiene asignado un ODS)
+            // Filtrado por ODS
             boolean cumpleOds = false;
             if (odsSeleccionado == null || odsSeleccionado.getIdOds() == 0) {
                 cumpleOds = true;
             } else {
-                if (iniciativa.getMetas().get(0).getOds() != null) {
+                // Verificamos que la iniciativa tenga metas y que la primera meta tenga un ODS asignado
+                if (!iniciativa.getMetas().isEmpty() && iniciativa.getMetas().get(0).getOds() != null) {
                     cumpleOds = (iniciativa.getMetas().get(0).getOds().getIdOds() == odsSeleccionado.getIdOds());
                 }
             }
@@ -245,6 +265,7 @@ public class IniciativasActivity extends AppCompatActivity {
             if (cumpleBusqueda && cumpleFecha && cumpleCurso && cumpleOds) {
                 iniciativasFiltradas.add(iniciativa);
             }
+
         }
 
         adapter = new RecyclerDataAdapter(iniciativasFiltradas);

@@ -17,25 +17,29 @@ public class Iniciativa {
     private String fechaFin;
     private boolean eliminado;
     private boolean innovador;
+    private String anyo_lectivo;
     private String imagen;
     private String fechaRegistro;
+    private String mas_comentarios;
     private List<Meta> metas;
     private List<Profesor> profesores;
     private List<EntidadExterna> entidades_externas;
     private List<Modulo> modulos;
 
-    public Iniciativa(int id, String tipo, String horas, String nombre, String producto_final, String fechaRegistro, String fechaInicio, String fechaFin, boolean eliminado, boolean innovador, String imagen, List<Meta> metas, List<Profesor> profesores, List<EntidadExterna> entidades_externas, List<Modulo> modulos) {
+    public Iniciativa(int id, String tipo, String horas, String nombre, String producto_final, String fechaInicio, String fechaFin, boolean eliminado, boolean innovador, String anyo_lectivo, String imagen, String fechaRegistro, String mas_comentarios, List<Meta> metas, List<Profesor> profesores, List<EntidadExterna> entidades_externas, List<Modulo> modulos) {
         this.id = id;
         this.tipo = tipo;
         this.horas = horas;
         this.nombre = nombre;
         this.producto_final = producto_final;
-        this.fechaRegistro = fechaRegistro;
         this.fechaInicio = fechaInicio;
         this.fechaFin = fechaFin;
         this.eliminado = eliminado;
         this.innovador = innovador;
+        this.anyo_lectivo = anyo_lectivo;
         this.imagen = imagen;
+        this.fechaRegistro = fechaRegistro;
+        this.mas_comentarios = mas_comentarios;
         this.metas = metas;
         this.profesores = profesores;
         this.entidades_externas = entidades_externas;
@@ -154,6 +158,22 @@ public class Iniciativa {
 
     public void setEntidades_externas(List<EntidadExterna> entidades_externas) {
         this.entidades_externas = entidades_externas;
+    }
+
+    public String getAnyo_lectivo() {
+        return anyo_lectivo;
+    }
+
+    public void setAnyo_lectivo(String anyo_lectivo) {
+        this.anyo_lectivo = anyo_lectivo;
+    }
+
+    public String getMas_comentarios() {
+        return mas_comentarios;
+    }
+
+    public void setMas_comentarios(String mas_comentarios) {
+        this.mas_comentarios = mas_comentarios;
     }
 
     public List<Modulo> getModulos() {
