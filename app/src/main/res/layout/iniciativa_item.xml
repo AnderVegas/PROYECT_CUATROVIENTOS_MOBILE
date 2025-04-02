@@ -5,8 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:padding="8dp">
+    android:padding="8dp"
+    android:orientation="vertical">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -16,101 +16,104 @@
         app:cardBackgroundColor="@android:color/white"
         android:layout_margin="8dp">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#c2c4ed"
+            android:orientation="vertical"
             android:padding="8dp">
 
             <!-- Imagen de la iniciativa -->
             <ImageView
                 android:id="@+id/imagenIniciativa"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
                 android:scaleType="centerCrop"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
+                android:adjustViewBounds="true"
                 tools:srcCompat="@tools:sample/avatars" />
 
-            <!-- Título de la iniciativa -->
-            <TextView
-                android:id="@+id/nombreIniciativa"
-                android:layout_width="0dp"
+            <!-- Contenedor de la información -->
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:text="Nombre Iniciativa"
-                android:textColor="@android:color/black"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/imagenIniciativa"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:orientation="vertical"
+                android:padding="8dp">
 
-            <!-- Descripción de la iniciativa -->
-            <TextView
-                android:id="@+id/descIniciativa"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                android:layout_marginEnd="8dp"
-                android:text="Descripción breve de la iniciativa"
-                android:textColor="@android:color/darker_gray"
-                android:textSize="14sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@id/nombreIniciativa"
-                app:layout_constraintTop_toBottomOf="@id/nombreIniciativa" />
+                <!-- Título de la iniciativa -->
+                <TextView
+                    android:id="@+id/nombreIniciativa"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Nombre Iniciativa"
+                    android:textColor="@android:color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:paddingBottom="4dp"/>
 
-            <!-- Icono para la clase -->
-            <ImageView
-                android:id="@+id/iconClase"
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:layout_marginTop="10dp"
-                android:contentDescription="Icono Clase"
-                app:layout_constraintStart_toStartOf="@id/nombreIniciativa"
-                app:layout_constraintTop_toBottomOf="@id/descIniciativa"
-                app:srcCompat="@drawable/training" />
+                <!-- Descripción de la iniciativa -->
+                <TextView
+                    android:id="@+id/descIniciativa"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Descripción breve de la iniciativa"
+                    android:textColor="@android:color/darker_gray"
+                    android:textSize="14sp"
+                    android:paddingBottom="8dp"/>
 
-            <!-- Texto para la clase: se mostrará "Clase de" en la primera línea y la asignatura en la segunda -->
-            <TextView
-                android:id="@+id/claseIniciativa"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
-                android:text="Clase de\nAsignatura"
-                android:textColor="@android:color/black"
-                android:textSize="12sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/iconClase"
-                app:layout_constraintTop_toTopOf="@id/iconClase" />
+                <!-- Contenedor de clase y fecha -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="start">
 
-            <!-- Icono para la fecha -->
-            <ImageView
-                android:id="@+id/iconFecha"
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:layout_marginTop="8dp"
-                android:contentDescription="Icono Fecha"
-                app:layout_constraintStart_toStartOf="@id/nombreIniciativa"
-                app:layout_constraintTop_toBottomOf="@id/claseIniciativa"
-                app:srcCompat="@drawable/calendar" />
+                    <!-- Icono de clase -->
+                    <ImageView
+                        android:id="@+id/iconClase"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_marginEnd="4dp"
+                        android:contentDescription="Icono Clase"
+                        app:srcCompat="@drawable/training" />
 
-            <!-- Texto para la fecha -->
-            <TextView
-                android:id="@+id/fechaIniciativa"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
-                android:text="Fecha Iniciativa"
-                android:textColor="@android:color/black"
-                android:textSize="12sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/iconFecha"
-                app:layout_constraintTop_toTopOf="@id/iconFecha" />
+                    <!-- Texto de clase -->
+                    <TextView
+                        android:id="@+id/claseIniciativa"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Clase de Asignatura"
+                        android:textColor="@android:color/black"
+                        android:textSize="12sp"
+                        android:layout_marginEnd="16dp"/>
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="start">
+                    <!-- Icono de fecha -->
+                    <ImageView
+                        android:id="@+id/iconFecha"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_marginEnd="4dp"
+                        android:contentDescription="Icono Fecha"
+                        app:srcCompat="@drawable/calendar" />
+
+                    <!-- Texto de fecha -->
+                    <TextView
+                        android:id="@+id/fechaIniciativa"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Fecha Iniciativa"
+                        android:textColor="@android:color/black"
+                        android:textSize="12sp"/>
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
     </androidx.cardview.widget.CardView>
+
 </LinearLayout>

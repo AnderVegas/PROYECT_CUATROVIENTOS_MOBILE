@@ -14,6 +14,7 @@ import android.widget.Spinner;
 import android.widget.AdapterView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -56,7 +57,10 @@ public class IniciativasActivity extends AppCompatActivity {
         setContentView(R.layout.activity_iniciativas);
 
         recyclerView = findViewById(R.id.recyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        //recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);  // 2 columnas
+        recyclerView.setLayoutManager(gridLayoutManager);
+
 
         // Inicializar filtros para que aparezcan
         LinearLayout searchAndFiltersLayout = findViewById(R.id.searchAndFiltersLayout);

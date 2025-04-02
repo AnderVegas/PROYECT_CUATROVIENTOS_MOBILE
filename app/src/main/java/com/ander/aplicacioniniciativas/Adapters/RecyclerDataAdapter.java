@@ -12,6 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.ander.aplicacioniniciativas.Models.Iniciativa;
 import com.ander.aplicacioniniciativas.R;
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 import java.util.List;
 
@@ -61,27 +63,26 @@ public class RecyclerDataAdapter extends RecyclerView.Adapter<RecyclerDataAdapte
             dataTextDescripcion.setText(iniciativa.getProducto_final());
 
             String curso = "";
-            // Obtener el nombre del curso y quitar "Clase de " si ya está incluido
             if (!iniciativa.getModulos().isEmpty() && iniciativa.getModulos().get(0).getCurso() != null) {
                 curso = iniciativa.getModulos().get(0).getCurso().getNombre();
-
                 String prefix = "Clase de ";
                 if (curso.toLowerCase().startsWith(prefix.toLowerCase())) {
                     curso = curso.substring(prefix.length());
                 }
-                // Mostrar "Clase de" en la primera línea y el nombre de la asignatura en la segunda
-                dataTextClase.setText("Clase de\n" + curso);
+                dataTextClase.setText("Clase de " + curso);
             } else {
                 curso = "Sin clase asignada";
             }
 
-            // Mostrar solo la fecha (sin la hora)
             dataTextFecha.setText(iniciativa.getFechaInicio().split(" ")[0]);
 
-            Context context = itemView.getContext();
-            String nombreImagen = iniciativa.getImagen();
-            int idImagen = context.getResources().getIdentifier(nombreImagen, "drawable", context.getPackageName());
-            dataImage.setImageResource(idImagen);
+            // Cargar imagen desde URL con Glide
+            Glide.with(itemView.getContext())
+                    .load(iniciativa.getImagen())
+                    .diskCacheStrategy(DiskCacheStrategy.ALL) // Para mejor rendimiento
+                    .placeholder(R.drawable.training) // Imagen de carga
+                    .error(R.drawable.actualizar) // Imagen en caso de error
+                    .into(dataImage);
         }
     }
 }
