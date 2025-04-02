@@ -31,86 +31,106 @@
                 android:adjustViewBounds="true"
                 tools:srcCompat="@tools:sample/avatars" />
 
-            <!-- Contenedor de la información -->
+            <!-- Contenedor principal con información y favorito -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="8dp">
+                android:orientation="horizontal"
+                android:padding="8dp"
+                android:gravity="center_vertical">
 
-                <!-- Título de la iniciativa -->
-                <TextView
-                    android:id="@+id/nombreIniciativa"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Nombre Iniciativa"
-                    android:textColor="@android:color/black"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
-                    android:paddingBottom="4dp"/>
-
-                <!-- Descripción de la iniciativa -->
-                <TextView
-                    android:id="@+id/descIniciativa"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Descripción breve de la iniciativa"
-                    android:textColor="@android:color/darker_gray"
-                    android:textSize="14sp"
-                    android:paddingBottom="8dp"/>
-
-                <!-- Contenedor de clase y fecha -->
+                <!-- Contenedor de la información -->
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="start">
+                    android:layout_weight="1"
+                    android:orientation="vertical">
 
-                    <!-- Icono de clase -->
-                    <ImageView
-                        android:id="@+id/iconClase"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:layout_marginEnd="4dp"
-                        android:contentDescription="Icono Clase"
-                        app:srcCompat="@drawable/training" />
-
-                    <!-- Texto de clase -->
+                    <!-- Título de la iniciativa -->
                     <TextView
-                        android:id="@+id/claseIniciativa"
-                        android:layout_width="wrap_content"
+                        android:id="@+id/nombreIniciativa"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Clase de Asignatura"
+                        android:text="Nombre Iniciativa"
                         android:textColor="@android:color/black"
-                        android:textSize="12sp"
-                        android:layout_marginEnd="16dp"/>
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:paddingBottom="4dp"/>
 
+                    <!-- Descripción de la iniciativa -->
+                    <TextView
+                        android:id="@+id/descIniciativa"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Descripción breve de la iniciativa"
+                        android:textColor="@android:color/darker_gray"
+                        android:textSize="14sp"
+                        android:paddingBottom="8dp"/>
+
+                    <!-- Contenedor de clase y fecha -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="start">
+
+                        <!-- Icono de clase -->
+
+                        <!-- Texto de clase -->
+                        <ImageView
+                            android:id="@+id/iconClase"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_marginEnd="4dp"
+                            android:contentDescription="Icono Clase"
+                            app:srcCompat="@drawable/training" />
+
+                        <TextView
+                            android:id="@+id/claseIniciativa"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Clase de Asignatura"
+                            android:textColor="@android:color/black"
+                            android:textSize="12sp"
+                            android:layout_marginEnd="16dp"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginTop="4dp"
+                        android:gravity="start">
+                        <!-- Icono de fecha -->
+                        <ImageView
+                            android:id="@+id/iconFecha"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_marginEnd="4dp"
+                            android:contentDescription="Icono Fecha"
+                            app:srcCompat="@drawable/calendar" />
+
+                        <!-- Texto de fecha -->
+                        <TextView
+                            android:id="@+id/fechaIniciativa"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Fecha Iniciativa"
+                            android:textColor="@android:color/black"
+                            android:textSize="12sp"/>
+                    </LinearLayout>
                 </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:gravity="start">
-                    <!-- Icono de fecha -->
-                    <ImageView
-                        android:id="@+id/iconFecha"
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:layout_marginEnd="4dp"
-                        android:contentDescription="Icono Fecha"
-                        app:srcCompat="@drawable/calendar" />
-
-                    <!-- Texto de fecha -->
-                    <TextView
-                        android:id="@+id/fechaIniciativa"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Fecha Iniciativa"
-                        android:textColor="@android:color/black"
-                        android:textSize="12sp"/>
-                </LinearLayout>
-
+                <!-- Icono de favorito -->
+                <ImageView
+                    android:id="@+id/btnFavorito"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_marginStart="8dp"
+                    android:contentDescription="Favorito"
+                    android:layout_gravity="bottom|end"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/guardados" />
             </LinearLayout>
 
         </LinearLayout>

@@ -48,6 +48,7 @@ public class RecyclerDataAdapter extends RecyclerView.Adapter<RecyclerDataAdapte
         private ImageView dataImage;
         private TextView dataTextClase;
         private TextView dataTextFecha;
+        private ImageView btnFavorito;
 
         public RecyclerDataHolder(@NonNull View itemView) {
             super(itemView);
@@ -56,6 +57,7 @@ public class RecyclerDataAdapter extends RecyclerView.Adapter<RecyclerDataAdapte
             dataTextClase = itemView.findViewById(R.id.claseIniciativa);
             dataTextFecha = itemView.findViewById(R.id.fechaIniciativa);
             dataImage = itemView.findViewById(R.id.imagenIniciativa);
+            btnFavorito = itemView.findViewById(R.id.btnFavorito);
         }
 
         public void asignData(Iniciativa iniciativa) {
@@ -83,6 +85,23 @@ public class RecyclerDataAdapter extends RecyclerView.Adapter<RecyclerDataAdapte
                     .placeholder(R.drawable.training) // Imagen de carga
                     .error(R.drawable.actualizar) // Imagen en caso de error
                     .into(dataImage);
+
+            // Icono dependiendo de si es favorito o no
+            actualizarIconoFavorito(iniciativa.isEsFavorito());
+
+            // Listener para cambiar favorito
+            btnFavorito.setOnClickListener(v -> {
+                iniciativa.setEsFavorito(!iniciativa.isEsFavorito());
+                actualizarIconoFavorito(iniciativa.isEsFavorito());
+            });
+        }
+
+        private void actualizarIconoFavorito(boolean esFavorito) {
+            if (esFavorito) {
+                btnFavorito.setImageResource(R.drawable.guardadolleno); // Ícono lleno
+            } else {
+                btnFavorito.setImageResource(R.drawable.guardadovacio); // Ícono vacío
+            }
         }
     }
 }

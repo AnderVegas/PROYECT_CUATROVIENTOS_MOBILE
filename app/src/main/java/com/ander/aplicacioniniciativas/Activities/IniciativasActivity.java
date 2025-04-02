@@ -1,5 +1,6 @@
 package com.ander.aplicacioniniciativas.Activities;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -12,10 +13,10 @@ import android.widget.LinearLayout;
 import android.widget.SearchView;
 import android.widget.Spinner;
 import android.widget.AdapterView;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ander.aplicacioniniciativas.Adapters.RecyclerDataAdapter;
@@ -39,7 +40,7 @@ import retrofit2.Response;
 
 public class IniciativasActivity extends AppCompatActivity {
 
-    private RecyclerView recyclerView;
+    private RecyclerView recyclerViewIniciativas;
     private RecyclerDataAdapter adapter;
     private List<Iniciativa> iniciativas;
     private List<Clase> clasesList;
@@ -50,17 +51,23 @@ public class IniciativasActivity extends AppCompatActivity {
     private String fechaInicio = "";
     private String fechaFin = "";
     private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+    // Variable para saber si estamos en pestaña de favoritos o no
+    private boolean favoritos = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_iniciativas);
 
-        recyclerView = findViewById(R.id.recyclerView);
+        // Recycler de iniciativas
+        recyclerViewIniciativas = findViewById(R.id.recyclerView);
         //recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);  // 2 columnas
-        recyclerView.setLayoutManager(gridLayoutManager);
+        recyclerViewIniciativas.setLayoutManager(gridLayoutManager);
 
+        // Botones para cambiar entre favoritos y todas las iniciativas
+        TextView viewIniciativas = findViewById(R.id.textViewIniciativas);
+        TextView viewFavoritos = findViewById(R.id.textViewFavoritos);
 
         // Inicializar filtros para que aparezcan
         LinearLayout searchAndFiltersLayout = findViewById(R.id.searchAndFiltersLayout);
@@ -70,6 +77,10 @@ public class IniciativasActivity extends AppCompatActivity {
         EditText editFechaInicio = findViewById(R.id.editFechaInicio);
         EditText editFechaFin = findViewById(R.id.editFechaFin);
 
+        // Lineas de eleccion iniciativas y favoritos
+        LinearLayout lineaIniciativas = findViewById(R.id.lineaIniciativa);
+        LinearLayout lineaFavoritos = findViewById(R.id.lineaFavorito);
+
         // Obtener las iniciativas desde la API
         CutrovientosIniciativasService apiService = ApiClient.getIniciativasService();
         Call<List<Iniciativa>> call = apiService.getIniciativas(false);
@@ -78,6 +89,7 @@ public class IniciativasActivity extends AppCompatActivity {
             public void onResponse(Call<List<Iniciativa>> call, Response<List<Iniciativa>> response) {
                 if (response.isSuccessful()) {
                     iniciativas = response.body();
+
                     actualizarListaFiltrada();
                 } else {
                     Log.e("API", "Error en la respuesta: " + response.code());
@@ -100,6 +112,28 @@ public class IniciativasActivity extends AppCompatActivity {
                 } else {
                     searchAndFiltersLayout.setVisibility(View.GONE);
                 }
+            }
+        });
+
+        // Mostrar recicler de todas las iniciativas
+        viewIniciativas.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                favoritos = false;
+                actualizarListaFiltrada();
+                lineaIniciativas.setBackgroundColor(Color.parseColor("#333333"));
+                lineaFavoritos.setBackgroundColor(Color.TRANSPARENT);
+            }
+        });
+
+        // Mostrar iniciativas favoritas
+        viewFavoritos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                favoritos = true;
+                actualizarListaFiltrada();
+                lineaIniciativas.setBackgroundColor(Color.TRANSPARENT);
+                lineaFavoritos.setBackgroundColor(Color.parseColor("#333333"));
             }
         });
 
@@ -272,8 +306,20 @@ public class IniciativasActivity extends AppCompatActivity {
 
         }
 
+        if (favoritos)
+        {
+            List<Iniciativa> iniciativasFavoritas = new ArrayList<>();
+            for (Iniciativa iniciativa : iniciativasFiltradas) {
+                if (iniciativa.isEsFavorito()) {
+                    iniciativasFavoritas.add(iniciativa);
+                }
+            }
+            iniciativasFiltradas = iniciativasFavoritas;
+        }
+
         adapter = new RecyclerDataAdapter(iniciativasFiltradas);
-        recyclerView.setAdapter(adapter);
+        recyclerViewIniciativas.setAdapter(adapter);
+
     }
 
     private boolean cumpleFiltroFecha(String fechaIni, String fechaFinal) {

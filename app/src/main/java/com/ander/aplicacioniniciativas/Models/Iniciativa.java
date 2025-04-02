@@ -25,8 +25,11 @@ public class Iniciativa {
     private List<Profesor> profesores;
     private List<EntidadExterna> entidades_externas;
     private List<Modulo> modulos;
+    private boolean esFavorito;
 
-    public Iniciativa(int id, String tipo, String horas, String nombre, String producto_final, String fechaInicio, String fechaFin, boolean eliminado, boolean innovador, String anyo_lectivo, String imagen, String fechaRegistro, String mas_comentarios, List<Meta> metas, List<Profesor> profesores, List<EntidadExterna> entidades_externas, List<Modulo> modulos) {
+    public Iniciativa(int id, String tipo, String horas, String nombre, String producto_final, String fechaInicio, String fechaFin, boolean eliminado, boolean innovador,
+                      String anyo_lectivo, String imagen, String fechaRegistro, String mas_comentarios, List<Meta> metas, List<Profesor> profesores,
+                      List<EntidadExterna> entidades_externas, List<Modulo> modulos) {
         this.id = id;
         this.tipo = tipo;
         this.horas = horas;
@@ -182,5 +185,13 @@ public class Iniciativa {
 
     public void setModulos(List<Modulo> modulos) {
         this.modulos = modulos;
+    }
+
+    public boolean isEsFavorito() {
+        return esFavorito;
+    }
+
+    public void setEsFavorito(boolean esFavorito) {
+        this.esFavorito = esFavorito;
     }
 }
