@@ -3,6 +3,7 @@ package com.ander.aplicacioniniciativas.Activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 
 import androidx.activity.EdgeToEdge;
@@ -15,8 +16,7 @@ import com.ander.aplicacioniniciativas.R;
 
 public class MainActivity extends AppCompatActivity {
 
-    View layoutIniciativas;
-    View layoutModificar;
+    private Button loginButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,10 +29,9 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
-        layoutIniciativas = findViewById(R.id.layoutButtonIniciativas);
-        layoutModificar = findViewById(R.id.layoutButtonModificar);
+        loginButton = findViewById(R.id.loginButton);
 
-        layoutIniciativas.setOnClickListener(new View.OnClickListener() {
+        loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Abrir ActivityIniciativas

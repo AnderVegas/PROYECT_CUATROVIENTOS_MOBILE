@@ -82,8 +82,8 @@ public class RecyclerDataAdapter extends RecyclerView.Adapter<RecyclerDataAdapte
             Glide.with(itemView.getContext())
                     .load(iniciativa.getImagen())
                     .diskCacheStrategy(DiskCacheStrategy.ALL) // Para mejor rendimiento
-                    .placeholder(R.drawable.training) // Imagen de carga
-                    .error(R.drawable.actualizar) // Imagen en caso de error
+                    .placeholder(R.drawable.cargando) // Imagen de carga
+                    .error(R.drawable.imageerror) // Imagen en caso de error
                     .into(dataImage);
 
             // Icono dependiendo de si es favorito o no
