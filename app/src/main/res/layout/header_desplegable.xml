@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="wrap_content"
+    android:layout_height="200dp"
+    android:background="@drawable/fondo1"
+    android:padding="20dp">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="40dp"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:src="@drawable/logo4v"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:fontFamily="@font/poppins_regular"
+            android:text="Iniciativas 4V"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="https://www.cuatrovientos.org"
+            android:textSize="10sp"
+            android:textColor="@color/white"
+            android:fontFamily="@font/poppins_regular"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:layout_marginLeft="20dp">
+
+        <!-- Icono de perfil (inicial) -->
+        <TextView
+            android:id="@+id/textLetra"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/circle_background"
+            android:gravity="center"
+            android:text="M"
+            android:textColor="@android:color/white"
+            android:textSize="17sp"
+            android:layout_gravity="right"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="70dp"
+            android:fontFamily="@font/poppins_regular"
+            android:text=""
+            android:textColor="@color/white"
+            android:layout_gravity="bottom"
+            android:textSize="18sp" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="end|center_vertical"/>
+
+
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/nav_home"
+            android:title="Inicio"
+            android:icon="@drawable/iconhome"/>
+
+        <item
+            android:id="@+id/nav_sesion"
+            android:title="Indicadores"
+            android:icon="@drawable/indicators"/>
+
+    </group>
+
+    <group android:checkableBehavior="single">
+
+        <item
+            android:title="Cuenta">
+
+            <menu>
+
+                <item
+                    android:id="@+id/nav_login"
+                    android:title="Iniciar sesión"
+                    android:icon="@drawable/login"/>
+
+                <item
+                    android:id="@+id/nav_Profile"
+                    android:title="Perfil"
+                    android:icon="@drawable/profile"/>
+
+                <item
+                    android:id="@+id/nav_logout"
+                    android:title="Cerrar sesión"
+                    android:icon="@drawable/logout"/>
+
+
+            </menu>
+
+        </item>
+
+    </group>
+
+    <item android:title="Communicate">
+
+        <menu>
+
+            <item
+                android:id="@+id/nav_share"
+                android:title="Compartir"
+                android:icon="@drawable/share"/>
+
+            <item
+                android:id="@+id/nav_rate"
+                android:title="Valorar"
+                android:icon="@drawable/rate"/>
+
+        </menu>
+
+    </item>
+
+</menu>

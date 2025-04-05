@@ -130,7 +130,7 @@
                     android:contentDescription="Favorito"
                     android:layout_gravity="bottom|end"
                     android:scaleType="fitCenter"
-                    app:srcCompat="@drawable/guardados" />
+                    app:srcCompat="@drawable/guardadovacio" />
             </LinearLayout>
 
         </LinearLayout>

@@ -15,7 +15,11 @@ import android.widget.Spinner;
 import android.widget.AdapterView;
 import android.widget.TextView;
 
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.widget.Toolbar;
+
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -26,6 +30,7 @@ import com.ander.aplicacioniniciativas.Models.Clase;
 import com.ander.aplicacioniniciativas.Models.Iniciativa;
 import com.ander.aplicacioniniciativas.Models.Ods;
 import com.ander.aplicacioniniciativas.R;
+import com.google.android.material.navigation.NavigationView;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -51,8 +56,10 @@ public class IniciativasActivity extends AppCompatActivity {
     private String fechaInicio = "";
     private String fechaFin = "";
     private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-    // Variable para saber si estamos en pestaña de favoritos o no
     private boolean favoritos = false;
+    private DrawerLayout drawerLayout;
+    private NavigationView navigationView;
+    private Toolbar toolBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +87,17 @@ public class IniciativasActivity extends AppCompatActivity {
         // Lineas de eleccion iniciativas y favoritos
         LinearLayout lineaIniciativas = findViewById(R.id.lineaIniciativa);
         LinearLayout lineaFavoritos = findViewById(R.id.lineaFavorito);
+
+        // Parte del menú desplegable
+        drawerLayout = findViewById(R.id.drawer_layout);
+        toolBar = findViewById(R.id.toggleDesplegable);
+        navigationView = findViewById(R.id.nav_view);
+
+        setSupportActionBar(toolBar);
+
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolBar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
 
         // Obtener las iniciativas desde la API
         CutrovientosIniciativasService apiService = ApiClient.getIniciativasService();
