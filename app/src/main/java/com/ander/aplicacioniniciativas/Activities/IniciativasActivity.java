@@ -19,8 +19,10 @@ import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.widget.Toolbar;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ander.aplicacioniniciativas.Adapters.RecyclerDataAdapter;
@@ -68,16 +70,17 @@ public class IniciativasActivity extends AppCompatActivity {
 
         // Recycler de iniciativas
         recyclerViewIniciativas = findViewById(R.id.recyclerView);
-        //recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);  // 2 columnas
-        recyclerViewIniciativas.setLayoutManager(gridLayoutManager);
+        // GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        recyclerViewIniciativas.setLayoutManager(layoutManager);
 
         // Botones para cambiar entre favoritos y todas las iniciativas
         TextView viewIniciativas = findViewById(R.id.textViewIniciativas);
         TextView viewFavoritos = findViewById(R.id.textViewFavoritos);
 
         // Inicializar filtros para que aparezcan
-        LinearLayout searchAndFiltersLayout = findViewById(R.id.searchAndFiltersLayout);
+        CardView cardViewFiltros = findViewById(R.id.cardViewFiltros);
+        // LinearLayout searchAndFiltersLayout = findViewById(R.id.searchAndFiltersLayout);
         ImageView imageLupa = findViewById(R.id.imageViewlupa);
 
         SearchView searchView = findViewById(R.id.searchView);
@@ -125,10 +128,10 @@ public class IniciativasActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Cambiar la visibilidad de los filtros
-                if (searchAndFiltersLayout.getVisibility() == View.GONE) {
-                    searchAndFiltersLayout.setVisibility(View.VISIBLE);
+                if (cardViewFiltros.getVisibility() == View.GONE) {
+                    cardViewFiltros.setVisibility(View.VISIBLE);
                 } else {
-                    searchAndFiltersLayout.setVisibility(View.GONE);
+                    cardViewFiltros.setVisibility(View.GONE);
                 }
             }
         });
