@@ -1,5 +1,6 @@
 package com.ander.aplicacioniniciativas.Activities;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
@@ -62,6 +63,13 @@ public class IniciativasActivity extends AppCompatActivity {
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
     private Toolbar toolBar;
+    private ImageView botonIndicadores;
+    private LinearLayout headerFecha;
+    private LinearLayout filtrosDateContainer;
+    private ImageView iconToggleFecha;
+    private LinearLayout headerClaseODS;
+    private LinearLayout filtrosClaseODSContainer;
+    private ImageView iconToggleClaseODS;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,6 +109,50 @@ public class IniciativasActivity extends AppCompatActivity {
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolBar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
+
+        // Boton para pantalla de indicadores
+        botonIndicadores = findViewById(R.id.imageViewIndicadores);
+        botonIndicadores.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(IniciativasActivity.this,IndicadoresActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        // Boton desplegable de filtro fecha
+        headerFecha = findViewById(R.id.headerFecha);
+        filtrosDateContainer = findViewById(R.id.filtrosFechaContainer);
+        iconToggleFecha = findViewById(R.id.iconToggleFecha);
+        headerFecha.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (filtrosDateContainer.getVisibility() == View.GONE) {
+                    filtrosDateContainer.setVisibility(View.VISIBLE);
+                    iconToggleFecha.setImageResource(R.drawable.minimizar);
+                } else {
+                    filtrosDateContainer.setVisibility(View.GONE);
+                    iconToggleFecha.setImageResource(R.drawable.maximizar);
+                }
+            }
+        });
+
+        // Boton desplegable de filtro ODS y Clase
+        headerClaseODS = findViewById(R.id.headerClaseODS);
+        filtrosClaseODSContainer = findViewById(R.id.filtrosClaseODSContainer);
+        iconToggleClaseODS = findViewById(R.id.iconToggleClaseODS);
+        headerClaseODS.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (filtrosClaseODSContainer.getVisibility() == View.GONE) {
+                    filtrosClaseODSContainer.setVisibility(View.VISIBLE);
+                    iconToggleClaseODS.setImageResource(R.drawable.minimizar);
+                } else {
+                    filtrosClaseODSContainer.setVisibility(View.GONE);
+                    iconToggleClaseODS.setImageResource(R.drawable.maximizar);
+                }
+            }
+        });
 
         // Obtener las iniciativas desde la API
         CutrovientosIniciativasService apiService = ApiClient.getIniciativasService();

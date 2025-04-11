@@ -167,185 +167,263 @@
                         android:background="@drawable/spinner_rounded"
                         tools:query="Buscar iniciativa" />
 
-                    <!-- Layout para filtros de fecha -->
+                    <!-- CABECERA del filtro Fecha -->
                     <LinearLayout
-                        android:id="@+id/dateFiltersLayout"
+                        android:id="@+id/headerFecha"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="15dp"
-                        android:gravity="center"
                         android:orientation="horizontal"
-                        android:layout_marginTop="15dp">
+                        android:layout_marginTop="5dp"
+                        android:gravity="center_vertical"
+                        android:paddingVertical="5dp"
+                        android:clickable="true"
+                        android:focusable="true">
 
-                        <!-- Filtro Fecha Inicio -->
-                        <LinearLayout
-                            android:layout_width="wrap_content"
+                        <TextView
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginEnd="16dp"
-                            android:gravity="center_horizontal"
-                            android:orientation="vertical">
+                            android:layout_weight="1"
+                            android:text="Filtrar por Fecha"
+                            android:textSize="18sp"
+                            android:textColor="#000000"
+                            android:fontFamily="@font/poppins_regular" />
 
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:gravity="center_vertical"
-                                android:layout_marginBottom="10dp"
-                                android:orientation="horizontal">
-
-                                <ImageView
-                                    android:layout_width="20dp"
-                                    android:layout_height="20dp"
-                                    android:layout_marginEnd="4dp"
-                                    android:contentDescription="Icono fecha"
-                                    app:srcCompat="@drawable/calendar" />
-
-                                <TextView
-                                    android:id="@+id/fechaInicioLabel"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Fecha Inicio"
-                                    android:textColor="#333333"
-                                    android:textSize="17sp" />
-                            </LinearLayout>
-
-                            <EditText
-                                android:id="@+id/editFechaInicio"
-                                android:layout_width="140dp"
-                                android:layout_height="37dp"
-                                android:background="@drawable/spinner_rounded"
-                                android:hint="yyyy-MM-dd"
-                                android:inputType="date" />
-                        </LinearLayout>
-
-                        <!-- Filtro Fecha Fin -->
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:gravity="center_horizontal"
-                            android:orientation="vertical">
-
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:gravity="center_vertical"
-                                android:layout_marginBottom="10dp"
-                                android:orientation="horizontal">
-
-                                <ImageView
-                                    android:layout_width="20dp"
-                                    android:layout_height="20dp"
-                                    android:layout_marginEnd="4dp"
-                                    android:contentDescription="Icono fecha"
-                                    app:srcCompat="@drawable/calendar" />
-
-                                <TextView
-                                    android:id="@+id/fechaFinLabel"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:text="Fecha Fin"
-                                    android:textColor="#333333"
-                                    android:textSize="17sp" />
-                            </LinearLayout>
-
-                            <EditText
-                                android:id="@+id/editFechaFin"
-                                android:layout_width="140dp"
-                                android:layout_height="37dp"
-                                android:background="@drawable/spinner_rounded"
-                                android:hint="yyyy-MM-dd"
-                                android:inputType="date" />
-                        </LinearLayout>
+                        <ImageView
+                            android:id="@+id/iconToggleFecha"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/maximizar"
+                            android:contentDescription="Toggle fecha" />
                     </LinearLayout>
 
-                    <!-- Layout para filtros de selección -->
+
                     <LinearLayout
-                        android:id="@+id/spinnerFiltersLayout"
+                        android:id="@+id/filtrosFechaContainer"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        android:orientation="horizontal"
                         android:gravity="center"
-                        android:orientation="horizontal">
+                        android:layout_marginBottom="5dp">
 
-                        <!-- Filtro Buscar por Clase -->
+                        <!-- Layout para filtros de fecha -->
                         <LinearLayout
-                            android:layout_width="0dp"
+                            android:id="@+id/dateFiltersLayout"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:layout_marginEnd="8dp"
-                            android:gravity="center_horizontal"
-                            android:orientation="vertical">
+                            android:layout_marginBottom="15dp"
+                            android:gravity="center"
+                            android:orientation="horizontal"
+                            android:layout_marginTop="15dp">
 
+                            <!-- Filtro Fecha Inicio -->
                             <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:gravity="center_vertical"
-                                android:layout_marginBottom="10dp"
-                                android:orientation="horizontal">
+                                android:layout_marginEnd="16dp"
+                                android:gravity="center_horizontal"
+                                android:orientation="vertical">
 
-                                <ImageView
-                                    android:layout_width="20dp"
-                                    android:layout_height="20dp"
-                                    android:layout_marginEnd="4dp"
-                                    android:contentDescription="Icono clase"
-                                    app:srcCompat="@drawable/training" />
-
-                                <TextView
-                                    android:id="@+id/nombreCurso"
+                                <LinearLayout
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Clase"
-                                    android:textColor="#333333"
-                                    android:textSize="17sp" />
+                                    android:gravity="center_vertical"
+                                    android:layout_marginBottom="10dp"
+                                    android:orientation="horizontal">
+
+                                    <ImageView
+                                        android:layout_width="20dp"
+                                        android:layout_height="20dp"
+                                        android:layout_marginEnd="4dp"
+                                        android:contentDescription="Icono fecha"
+                                        app:srcCompat="@drawable/calendar" />
+
+                                    <TextView
+                                        android:id="@+id/fechaInicioLabel"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Fecha Inicio"
+                                        android:textColor="#333333"
+                                        android:textSize="17sp" />
+                                </LinearLayout>
+
+                                <EditText
+                                    android:id="@+id/editFechaInicio"
+                                    android:layout_width="140dp"
+                                    android:layout_height="37dp"
+                                    android:background="@drawable/spinner_rounded"
+                                    android:hint="yyyy-MM-dd"
+                                    android:inputType="date" />
                             </LinearLayout>
 
-                            <Spinner
-                                android:id="@+id/dropDownCursos"
-                                android:layout_width="match_parent"
-                                android:layout_height="33dp"
-                                android:background="@drawable/spinner_rounded"
-                                android:spinnerMode="dropdown" />
-                        </LinearLayout>
-
-                        <!-- Filtro Buscar por ODS -->
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:layout_marginStart="8dp"
-                            android:gravity="center_horizontal"
-                            android:orientation="vertical">
-
+                            <!-- Filtro Fecha Fin -->
                             <LinearLayout
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:gravity="center_vertical"
-                                android:layout_marginBottom="10dp"
-                                android:orientation="horizontal">
+                                android:gravity="center_horizontal"
+                                android:orientation="vertical">
 
-                                <ImageView
-                                    android:layout_width="20dp"
-                                    android:layout_height="20dp"
-                                    android:layout_marginEnd="4dp"
-                                    android:contentDescription="Icono ODS"
-                                    app:srcCompat="@drawable/ods" />
-
-                                <TextView
-                                    android:id="@+id/nombreCurso2"
+                                <LinearLayout
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="ODS"
-                                    android:textColor="#333333"
-                                    android:textSize="17sp" />
-                            </LinearLayout>
+                                    android:gravity="center_vertical"
+                                    android:layout_marginBottom="10dp"
+                                    android:orientation="horizontal">
 
-                            <Spinner
-                                android:id="@+id/dropDownODS"
-                                android:layout_width="match_parent"
-                                android:layout_height="33dp"
-                                android:background="@drawable/spinner_rounded"
-                                android:spinnerMode="dropdown" />
+                                    <ImageView
+                                        android:layout_width="20dp"
+                                        android:layout_height="20dp"
+                                        android:layout_marginEnd="4dp"
+                                        android:contentDescription="Icono fecha"
+                                        app:srcCompat="@drawable/calendar" />
+
+                                    <TextView
+                                        android:id="@+id/fechaFinLabel"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Fecha Fin"
+                                        android:textColor="#333333"
+                                        android:textSize="17sp" />
+                                </LinearLayout>
+
+                                <EditText
+                                    android:id="@+id/editFechaFin"
+                                    android:layout_width="140dp"
+                                    android:layout_height="37dp"
+                                    android:background="@drawable/spinner_rounded"
+                                    android:hint="yyyy-MM-dd"
+                                    android:inputType="date" />
+                            </LinearLayout>
                         </LinearLayout>
+                </LinearLayout>
+
+                    <!-- CABECERA del filtro Fecha -->
+                    <LinearLayout
+                        android:id="@+id/headerClaseODS"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:paddingVertical="5dp"
+                        android:clickable="true"
+                        android:focusable="true">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Filtrar por Clase y ODS"
+                            android:textSize="18sp"
+                            android:textColor="#000000"
+                            android:fontFamily="@font/poppins_regular" />
+
+                        <ImageView
+                            android:id="@+id/iconToggleClaseODS"
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:src="@drawable/maximizar"
+                            android:contentDescription="Toggle fecha" />
                     </LinearLayout>
 
+
+                    <LinearLayout
+                        android:id="@+id/filtrosClaseODSContainer"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        android:orientation="horizontal"
+                        android:gravity="center"
+                        android:layout_marginBottom="15dp">
+
+                        <!-- Layout para filtros de selección -->
+                        <LinearLayout
+                            android:id="@+id/spinnerFiltersLayout"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <!-- Filtro Buscar por Clase -->
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_marginEnd="8dp"
+                                android:gravity="center_horizontal"
+                                android:orientation="vertical">
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center_vertical"
+                                    android:layout_marginBottom="10dp"
+                                    android:orientation="horizontal">
+
+                                    <ImageView
+                                        android:layout_width="20dp"
+                                        android:layout_height="20dp"
+                                        android:layout_marginEnd="4dp"
+                                        android:contentDescription="Icono clase"
+                                        app:srcCompat="@drawable/training" />
+
+                                    <TextView
+                                        android:id="@+id/nombreCurso"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="Clase"
+                                        android:textColor="#333333"
+                                        android:textSize="17sp" />
+                                </LinearLayout>
+
+                                <Spinner
+                                    android:id="@+id/dropDownCursos"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="33dp"
+                                    android:background="@drawable/spinner_rounded"
+                                    android:spinnerMode="dropdown" />
+                            </LinearLayout>
+
+                            <!-- Filtro Buscar por ODS -->
+                            <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_marginStart="8dp"
+                                android:gravity="center_horizontal"
+                                android:orientation="vertical">
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:gravity="center_vertical"
+                                    android:layout_marginBottom="10dp"
+                                    android:orientation="horizontal">
+
+                                    <ImageView
+                                        android:layout_width="20dp"
+                                        android:layout_height="20dp"
+                                        android:layout_marginEnd="4dp"
+                                        android:contentDescription="Icono ODS"
+                                        app:srcCompat="@drawable/ods" />
+
+                                    <TextView
+                                        android:id="@+id/nombreCurso2"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="ODS"
+                                        android:textColor="#333333"
+                                        android:textSize="17sp" />
+                                </LinearLayout>
+
+                                <Spinner
+                                    android:id="@+id/dropDownODS"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="33dp"
+                                    android:background="@drawable/spinner_rounded"
+                                    android:spinnerMode="dropdown" />
+                            </LinearLayout>
+                        </LinearLayout>
+                    </LinearLayout>
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
@@ -439,7 +517,7 @@
                         app:srcCompat="@drawable/casa" />
 
                     <ImageView
-                        android:id="@+id/imageViewGuardado"
+                        android:id="@+id/imageViewIndicadores"
                         android:layout_width="0dp"
                         android:layout_height="35dp"
                         android:layout_weight="1"

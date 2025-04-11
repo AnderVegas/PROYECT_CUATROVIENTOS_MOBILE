@@ -98,9 +98,9 @@ public class RecyclerDataAdapter extends RecyclerView.Adapter<RecyclerDataAdapte
 
         private void actualizarIconoFavorito(boolean esFavorito) {
             if (esFavorito) {
-                btnFavorito.setImageResource(R.drawable.guardadolleno); // Ícono lleno
+                btnFavorito.setImageResource(R.drawable.guardadolleno);
             } else {
-                btnFavorito.setImageResource(R.drawable.guardadovacio); // Ícono vacío
+                btnFavorito.setImageResource(R.drawable.guardadovacio);
             }
         }
     }
