@@ -1,29 +1,146 @@
 package com.ander.aplicacioniniciativas.Activities;
 
+import android.util.Log;
+
+import com.ander.aplicacioniniciativas.App.CutrovientosIniciativasService;
 import com.ander.aplicacioniniciativas.Models.Indicador;
+import com.ander.aplicacioniniciativas.Models.Indicadores.CantidadIniciativas2;
+import com.ander.aplicacioniniciativas.Models.Indicadores.IndicadorCantidadIniciativas2;
+import com.ander.aplicacioniniciativas.Models.Indicadores.IndicadorIniciativasPorCurso1;
+import com.ander.aplicacioniniciativas.Models.Indicadores.IndicadorTipoIniciativa8;
+import com.ander.aplicacioniniciativas.Models.Indicadores.IniciativasPorCurso1;
+import com.ander.aplicacioniniciativas.Models.Indicadores.TipoIniciativa8;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class ServiceIndicadores {
 
-    public static List<Indicador> getIndicadores() {
-        List<Indicador> listIndicadores = new ArrayList<>();
+    private static final String TAG = "ServiceIndicadores";
 
-        listIndicadores.add(new Indicador(1, "Qué iniciativas se han realizado dirigidas a los ODS por curso académico"));
-        listIndicadores.add(new Indicador(2, "Qué iniciativas se han realizado dirigidas a los ODS por curso académico"));
-        listIndicadores.add(new Indicador(3, "En qué ciclo se han realizado las iniciativas, proyectos, y en los ciclos qué módulos han intervenido"));
-        listIndicadores.add(new Indicador(4, "En qué consiste cada acción, proyecto, iniciativa y si hay un producto final"));
-        listIndicadores.add(new Indicador(5, "A qué ODS va dirigida cada acción y dentro de cada ODS a qué metas concretas"));
-        listIndicadores.add(new Indicador(6, "Si en la realización del proyecto, acción ha colaborado alguna entidad externa"));
-        listIndicadores.add(new Indicador(7, "Si las acciones, proyectos se han difundido"));
-        listIndicadores.add(new Indicador(8, "Diferenciar si son Proyectos, charlas o talleres"));
-        listIndicadores.add(new Indicador(9, "Cada ODS, y por lo tanto cada proyecto, charla, etc, está vinculada a una dimensión"));
-        listIndicadores.add(new Indicador(10, "Personas que han sido responsables de las iniciativas, proyectos, etc."));
-        listIndicadores.add(new Indicador(11, "De las acciones realizadas cuales son nuevas, innovadoras o que han hecho alguna modificación importante"));
-        listIndicadores.add(new Indicador(12, "Cuánto tiempo se ha dedicado a cada acción"));
-        listIndicadores.add(new Indicador(13, "Si esas acciones o proyectos han requerido de alguna visita, salida, charla, etc."));
+    private CutrovientosIniciativasService apiService;
 
-        return listIndicadores;
+    public ServiceIndicadores(CutrovientosIniciativasService apiService) {
+        this.apiService = apiService;
     }
+
+    public interface IndicadoresCallback {
+        void onResult(List<Indicador> indicadores);
+        void onError(Throwable t);
+    }
+
+    public void getIndicadores(final IndicadoresCallback callback) {
+        List<Indicador> indicadores = new ArrayList<>();
+
+        apiService.getIniciativasPorCurso().enqueue(new Callback<List<IniciativasPorCurso1>>() {
+            @Override
+            public void onResponse(Call<List<IniciativasPorCurso1>> call, Response<List<IniciativasPorCurso1>> response) {
+                if (response.isSuccessful()) {
+                    List<IniciativasPorCurso1> iniciativas = response.body();
+
+                    List<Float> datosGraficos = new ArrayList<>();
+                    List<String> etiquetas = new ArrayList<>();
+
+                    for (IniciativasPorCurso1 item : iniciativas) {
+                        datosGraficos.add((float) item.getNumIniciativas());
+                        etiquetas.add(item.getNombreCurso());
+                    }
+
+                    IndicadorIniciativasPorCurso1 indicador1 = new IndicadorIniciativasPorCurso1(
+                            1,
+                            "Iniciativas realizadas por curso académico",
+                            datosGraficos,
+                            etiquetas,
+                            iniciativas
+                    );
+
+                    indicadores.add(indicador1);
+
+                    // Segunda llamada
+                    apiService.getCantidadIniciativas().enqueue(new Callback<CantidadIniciativas2>() {
+                        @Override
+                        public void onResponse(Call<CantidadIniciativas2> call, Response<CantidadIniciativas2> response) {
+                            if (response.isSuccessful()) {
+                                CantidadIniciativas2 cantidad = response.body();
+
+                                List<Float> datosCantidad = new ArrayList<>();
+                                datosCantidad.add((float) cantidad.getCantidad());
+
+                                List<String> etiquetasCantidad = new ArrayList<>();
+                                etiquetasCantidad.add("Total");
+
+                                IndicadorCantidadIniciativas2 indicador2 = new IndicadorCantidadIniciativas2(
+                                        2,
+                                        "Cantidad total de iniciativas",
+                                        datosCantidad,
+                                        etiquetasCantidad,
+                                        cantidad
+                                );
+
+                                indicadores.add(indicador2);
+
+                                // Tercera llamada: tipo de iniciativas
+                                apiService.getTipoIniciativas().enqueue(new Callback<List<TipoIniciativa8>>() {
+                                    @Override
+                                    public void onResponse(Call<List<TipoIniciativa8>> call, Response<List<TipoIniciativa8>> response) {
+                                        if (response.isSuccessful()) {
+                                            List<TipoIniciativa8> tipos = response.body();
+
+                                            List<Float> datosTipos = new ArrayList<>();
+                                            List<String> etiquetasTipos = new ArrayList<>();
+
+                                            for (TipoIniciativa8 item : tipos) {
+                                                datosTipos.add((float) item.getCantidad());
+                                                etiquetasTipos.add(item.getTipo());
+                                            }
+
+                                            IndicadorTipoIniciativa8 indicador3 = new IndicadorTipoIniciativa8(
+                                                    3,
+                                                    "Cantidad por tipo de iniciativa",
+                                                    datosTipos,
+                                                    etiquetasTipos,
+                                                    tipos
+                                            );
+
+                                            indicadores.add(indicador3);
+
+                                            callback.onResult(indicadores); // ✅ Todo listo
+                                        } else {
+                                            callback.onError(new Exception("Error al obtener tipoIniciativas"));
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<List<TipoIniciativa8>> call, Throwable t) {
+                                        callback.onError(t);
+                                    }
+                                });
+
+                            } else {
+                                callback.onError(new Exception("Error al obtener cantidadIniciativas"));
+                            }
+                        }
+
+                        @Override
+                        public void onFailure(Call<CantidadIniciativas2> call, Throwable t) {
+                            callback.onError(t);
+                        }
+                    });
+
+                } else {
+                    callback.onError(new Exception("Error al obtener iniciativasPorCurso"));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<IniciativasPorCurso1>> call, Throwable t) {
+                callback.onError(t);
+            }
+        });
+    }
+
 }
