@@ -1,16 +1,14 @@
-package com.ander.aplicacioniniciativas.Models.Indicadores;
+package com.ander.aplicacioniniciativas.Models.Indicadores.Indicador8;
 
 public class TipoIniciativa8 {
     private String tipo;
     private int cantidad;
 
-    // Constructor
     public TipoIniciativa8(String tipo, int cantidad) {
         this.tipo = tipo;
         this.cantidad = cantidad;
     }
 
-    // Getters
     public String getTipo() {
         return tipo;
     }
@@ -19,7 +17,6 @@ public class TipoIniciativa8 {
         return cantidad;
     }
 
-    // Setters (opcional)
     public void setTipo(String tipo) {
         this.tipo = tipo;
     }

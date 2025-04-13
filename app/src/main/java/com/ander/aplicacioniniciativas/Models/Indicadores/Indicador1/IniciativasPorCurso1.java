@@ -1,4 +1,4 @@
-package com.ander.aplicacioniniciativas.Models.Indicadores;
+package com.ander.aplicacioniniciativas.Models.Indicadores.Indicador1;
 
 public class IniciativasPorCurso1 {
 

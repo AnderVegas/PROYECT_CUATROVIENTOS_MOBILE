@@ -1,4 +1,4 @@
-package com.ander.aplicacioniniciativas.Models.Indicadores;
+package com.ander.aplicacioniniciativas.Models.Indicadores.Indicador1;
 
 import com.ander.aplicacioniniciativas.Models.Indicador;
 
