@@ -9,7 +9,9 @@ import com.ander.aplicacioniniciativas.Models.Indicadores.Indicador13.HaTenidoAc
 import com.ander.aplicacioniniciativas.Models.Indicadores.Indicador2.CantidadIniciativas2;
 import com.ander.aplicacioniniciativas.Models.Indicadores.Indicador1.IniciativasPorCurso1;
 import com.ander.aplicacioniniciativas.Models.Indicadores.Indicador3.IniciativaConCiclosYModulos3;
+import com.ander.aplicacioniniciativas.Models.Indicadores.Indicador4.ExplicacionIniciativas4;
 import com.ander.aplicacioniniciativas.Models.Indicadores.Indicador6.EntidadesExternas6;
+import com.ander.aplicacioniniciativas.Models.Indicadores.Indicador7.TieneRRSS7;
 import com.ander.aplicacioniniciativas.Models.Indicadores.Indicador8.TipoIniciativa8;
 import com.ander.aplicacioniniciativas.Models.Iniciativa;
 import com.ander.aplicacioniniciativas.Models.Ods;
@@ -42,9 +44,17 @@ public interface CutrovientosIniciativasService {
     @GET("indicadores/ciclosYModulosConInciativas")
     Call<List<IniciativaConCiclosYModulos3>> getCiclosYModulosConInciativas();
 
+    // Indicador 4
+    @GET("indicadores/explicacionIniciativas")
+    Call<List<ExplicacionIniciativas4>> getExplicacionIniciativas();
+
     //  Indicador 6
     @GET("indicadores/tieneEntidadesExternas")
     Call<List<EntidadesExternas6>> getEntidadesExternas();
+
+    //  Indicador 7
+    @GET("indicadores/tieneRRSS")
+    Call<List<TieneRRSS7>> getTieneRRSS();
 
     // Indicador 8
     @GET("indicadores/tipoIniciativa")

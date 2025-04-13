@@ -17,8 +17,12 @@ import com.ander.aplicacioniniciativas.Models.Indicadores.Indicador13.IndicadorH
 import com.ander.aplicacioniniciativas.Models.Indicadores.Indicador2.CantidadIniciativas2;
 import com.ander.aplicacioniniciativas.Models.Indicadores.Indicador2.IndicadorCantidadIniciativas2;
 import com.ander.aplicacioniniciativas.Models.Indicadores.Indicador1.IndicadorIniciativasPorCurso1;
+import com.ander.aplicacioniniciativas.Models.Indicadores.Indicador4.ExplicacionIniciativas4;
+import com.ander.aplicacioniniciativas.Models.Indicadores.Indicador4.IndicadorExplicacionIniciativas4;
 import com.ander.aplicacioniniciativas.Models.Indicadores.Indicador6.EntidadesExternas6;
 import com.ander.aplicacioniniciativas.Models.Indicadores.Indicador6.IndicadorEntidadesExternas6;
+import com.ander.aplicacioniniciativas.Models.Indicadores.Indicador7.IndicadorTieneRRSS7;
+import com.ander.aplicacioniniciativas.Models.Indicadores.Indicador7.TieneRRSS7;
 import com.ander.aplicacioniniciativas.Models.Indicadores.Indicador8.IndicadorTipoIniciativa8;
 import com.ander.aplicacioniniciativas.Models.Indicadores.Indicador1.IniciativasPorCurso1;
 import com.ander.aplicacioniniciativas.Models.Indicadores.Indicador8.TipoIniciativa8;
@@ -95,275 +99,334 @@ public class ServiceIndicadores {
 
                                 indicadores.add(indicador2);
 
-                                // Indicador 6
-                                apiService.getEntidadesExternas().enqueue(new Callback<List<EntidadesExternas6>>() {
+                                apiService.getExplicacionIniciativas().enqueue(new Callback<List<ExplicacionIniciativas4>>() {
                                     @Override
-                                    public void onResponse(Call<List<EntidadesExternas6>> call, Response<List<EntidadesExternas6>> response) {
-                                        if (response.isSuccessful() && response.body() != null && !response.body().isEmpty()) {
-                                            EntidadesExternas6 entidades = response.body().get(0); // solo 1 objeto
+                                    public void onResponse(Call<List<ExplicacionIniciativas4>> call, Response<List<ExplicacionIniciativas4>> response) {
+                                        if (response.isSuccessful() && response.body() != null) {
+                                            List<ExplicacionIniciativas4> explicaciones = response.body();
 
-                                            List<Float> datosEntidades = new ArrayList<>();
-                                            datosEntidades.add((float) entidades.getTieneEntidades());
-                                            datosEntidades.add((float) entidades.getNoTieneEntidades());
-
-                                            List<String> etiquetasEntidades = new ArrayList<>();
-                                            etiquetasEntidades.add("Con entidades");
-                                            etiquetasEntidades.add("Sin entidades");
-
-                                            IndicadorEntidadesExternas6 indicador6 = new IndicadorEntidadesExternas6(
-                                                    6,
-                                                    "¿Las iniciativas tienen entidades externas?",
-                                                    datosEntidades,
-                                                    etiquetasEntidades,
-                                                    entidades
+                                            IndicadorExplicacionIniciativas4 indicador4 = new IndicadorExplicacionIniciativas4(
+                                                    4,
+                                                    "Explicaciones de las iniciativas",
+                                                    null,
+                                                    null,
+                                                    explicaciones
                                             );
 
-                                            indicadores.add(indicador6);
+                                            indicadores.add(indicador4);
 
-                                            // Indicador 8
-                                            apiService.getTipoIniciativas().enqueue(new Callback<List<TipoIniciativa8>>() {
+                                            // Indicador 6
+                                            apiService.getEntidadesExternas().enqueue(new Callback<List<EntidadesExternas6>>() {
                                                 @Override
-                                                public void onResponse(Call<List<TipoIniciativa8>> call, Response<List<TipoIniciativa8>> response) {
-                                                    if (response.isSuccessful()) {
-                                                        List<TipoIniciativa8> tipos = response.body();
+                                                public void onResponse(Call<List<EntidadesExternas6>> call, Response<List<EntidadesExternas6>> response) {
+                                                    if (response.isSuccessful() && response.body() != null && !response.body().isEmpty()) {
+                                                        EntidadesExternas6 entidades = response.body().get(0); // solo 1 objeto
 
-                                                        List<Float> datosTipos = new ArrayList<>();
-                                                        List<String> etiquetasTipos = new ArrayList<>();
+                                                        List<Float> datosEntidades = new ArrayList<>();
+                                                        datosEntidades.add((float) entidades.getTieneEntidades());
+                                                        datosEntidades.add((float) entidades.getNoTieneEntidades());
 
-                                                        for (TipoIniciativa8 item : tipos) {
-                                                            datosTipos.add((float) item.getCantidad());
-                                                            etiquetasTipos.add(item.getTipo());
-                                                        }
+                                                        List<String> etiquetasEntidades = new ArrayList<>();
+                                                        etiquetasEntidades.add("Con entidades");
+                                                        etiquetasEntidades.add("Sin entidades");
 
-                                                        IndicadorTipoIniciativa8 indicador8 = new IndicadorTipoIniciativa8(
-                                                                8,
-                                                                "Cantidad por tipo de iniciativa",
-                                                                datosTipos,
-                                                                etiquetasTipos,
-                                                                tipos
+                                                        IndicadorEntidadesExternas6 indicador6 = new IndicadorEntidadesExternas6(
+                                                                6,
+                                                                "¿Las iniciativas tienen entidades externas?",
+                                                                datosEntidades,
+                                                                etiquetasEntidades,
+                                                                entidades
                                                         );
 
-                                                        indicadores.add(indicador8);
+                                                        indicadores.add(indicador6);
 
-                                                        // Indicador 10.1
-                                                        apiService.getCantProfesores().enqueue(new Callback<CantProfesores10_1>() {
+                                                        // Indicador 7
+                                                        apiService.getTieneRRSS().enqueue(new Callback<List<TieneRRSS7>>() {
                                                             @Override
-                                                            public void onResponse(Call<CantProfesores10_1> call, Response<CantProfesores10_1> response) {
+                                                            public void onResponse(Call<List<TieneRRSS7>> call, Response<List<TieneRRSS7>> response) {
                                                                 if (response.isSuccessful() && response.body() != null) {
-                                                                    Log.d(TAG, "Respuesta exitosa de getCantProfesores: " + response.body().toString());
+                                                                    List<TieneRRSS7> listaRRSS = response.body();
 
-                                                                    CantProfesores10_1 profesores = response.body();  // Ahora no es una lista, es directamente un objeto
-
-                                                                    List<Float> datosProfesores = new ArrayList<>();
-                                                                    datosProfesores.add((float) profesores.getCantProfesores());
-
-                                                                    List<String> etiquetasProfesores = new ArrayList<>();
-                                                                    etiquetasProfesores.add("Total de profesores");
-
-                                                                    IndicadorCantProfesores10_1 indicador10_1 = new IndicadorCantProfesores10_1(
-                                                                            101,
-                                                                            "Cantidad de profesores involucrados",
-                                                                            datosProfesores,
-                                                                            etiquetasProfesores,
-                                                                            profesores
+                                                                    IndicadorTieneRRSS7 indicador7 = new IndicadorTieneRRSS7(
+                                                                            7,
+                                                                            "¿Qué iniciativas tienen presencia en redes sociales?",
+                                                                            null,
+                                                                            null,
+                                                                            listaRRSS
                                                                     );
 
-                                                                    indicadores.add(indicador10_1);
+                                                                    indicadores.add(indicador7);
 
-                                                                    // Indicador 10.2
-                                                                    apiService.getCantidadIniciativasProfesor().enqueue(new Callback<List<CantidadIniciativasProfesor10_2>>() {
+// Indicador 8
+                                                                    apiService.getTipoIniciativas().enqueue(new Callback<List<TipoIniciativa8>>() {
                                                                         @Override
-                                                                        public void onResponse(Call<List<CantidadIniciativasProfesor10_2>> call, Response<List<CantidadIniciativasProfesor10_2>> response) {
+                                                                        public void onResponse(Call<List<TipoIniciativa8>> call, Response<List<TipoIniciativa8>> response) {
                                                                             if (response.isSuccessful()) {
-                                                                                List<CantidadIniciativasProfesor10_2> profes = response.body();
+                                                                                List<TipoIniciativa8> tipos = response.body();
 
-                                                                                List<Float> datosCantIniciativas = new ArrayList<>();
-                                                                                List<String> etiquetasNombreProf = new ArrayList<>();
+                                                                                List<Float> datosTipos = new ArrayList<>();
+                                                                                List<String> etiquetasTipos = new ArrayList<>();
 
-                                                                                for (CantidadIniciativasProfesor10_2 item : profes) {
-                                                                                    datosCantIniciativas.add((float) item.getCantIniciativas());
-                                                                                    etiquetasNombreProf.add(item.getNombreProfesor());
+                                                                                for (TipoIniciativa8 item : tipos) {
+                                                                                    datosTipos.add((float) item.getCantidad());
+                                                                                    etiquetasTipos.add(item.getTipo());
                                                                                 }
 
-                                                                                IndicadorCantidadIniciativasProfesor10_2 indicador10_2 = new IndicadorCantidadIniciativasProfesor10_2(
-                                                                                        102,
+                                                                                IndicadorTipoIniciativa8 indicador8 = new IndicadorTipoIniciativa8(
+                                                                                        8,
                                                                                         "Cantidad por tipo de iniciativa",
-                                                                                        datosCantIniciativas,
-                                                                                        etiquetasNombreProf,
-                                                                                        profes
+                                                                                        datosTipos,
+                                                                                        etiquetasTipos,
+                                                                                        tipos
                                                                                 );
 
-                                                                                indicadores.add(indicador10_2);
+                                                                                indicadores.add(indicador8);
 
-                                                                                // Ahora vamos a añadir el Indicador 11 después del 10.1
-                                                                                apiService.getDiferenciaInnovadoresYNo().enqueue(new Callback<DiferenciaInnovadoresYNo11>() {
+                                                                                // Indicador 10.1
+                                                                                apiService.getCantProfesores().enqueue(new Callback<CantProfesores10_1>() {
                                                                                     @Override
-                                                                                    public void onResponse(Call<DiferenciaInnovadoresYNo11> call, Response<DiferenciaInnovadoresYNo11> response) {
+                                                                                    public void onResponse(Call<CantProfesores10_1> call, Response<CantProfesores10_1> response) {
                                                                                         if (response.isSuccessful() && response.body() != null) {
-                                                                                            DiferenciaInnovadoresYNo11 diferencia = response.body();
+                                                                                            Log.d(TAG, "Respuesta exitosa de getCantProfesores: " + response.body().toString());
 
-                                                                                            List<Float> datosDiferencia = new ArrayList<>();
-                                                                                            datosDiferencia.add((float) diferencia.getCantidadInnovadoras());
-                                                                                            datosDiferencia.add((float) diferencia.getCantidadNoInnovadoras());
+                                                                                            CantProfesores10_1 profesores = response.body();  // Ahora no es una lista, es directamente un objeto
 
-                                                                                            List<String> etiquetasDiferencia = new ArrayList<>();
-                                                                                            etiquetasDiferencia.add("Innovadoras");
-                                                                                            etiquetasDiferencia.add("No innovadoras");
+                                                                                            List<Float> datosProfesores = new ArrayList<>();
+                                                                                            datosProfesores.add((float) profesores.getCantProfesores());
 
-                                                                                            IndicadorDiferenciaInnovadoresYNo11 indicador11 = new IndicadorDiferenciaInnovadoresYNo11(
-                                                                                                    11,
-                                                                                                    "Diferencia entre iniciativas innovadoras y no innovadoras",
-                                                                                                    datosDiferencia,
-                                                                                                    etiquetasDiferencia,
-                                                                                                    diferencia
+                                                                                            List<String> etiquetasProfesores = new ArrayList<>();
+                                                                                            etiquetasProfesores.add("Total de profesores");
+
+                                                                                            IndicadorCantProfesores10_1 indicador10_1 = new IndicadorCantProfesores10_1(
+                                                                                                    101,
+                                                                                                    "Cantidad de profesores involucrados",
+                                                                                                    datosProfesores,
+                                                                                                    etiquetasProfesores,
+                                                                                                    profesores
                                                                                             );
 
-                                                                                            indicadores.add(indicador11);
+                                                                                            indicadores.add(indicador10_1);
 
-                                                                                            // Ahora, obtenemos el Indicador 12 (horas dedicadas a cada iniciativa)
-                                                                                            apiService.getCantHorasIniciativa().enqueue(new Callback<List<CantHorasIniciativa12>>() {
+                                                                                            // Indicador 10.2
+                                                                                            apiService.getCantidadIniciativasProfesor().enqueue(new Callback<List<CantidadIniciativasProfesor10_2>>() {
                                                                                                 @Override
-                                                                                                public void onResponse(Call<List<CantHorasIniciativa12>> call, Response<List<CantHorasIniciativa12>> response) {
-                                                                                                    if (response.isSuccessful() && response.body() != null) {
-                                                                                                        List<CantHorasIniciativa12> horasIniciativas = response.body();
+                                                                                                public void onResponse(Call<List<CantidadIniciativasProfesor10_2>> call, Response<List<CantidadIniciativasProfesor10_2>> response) {
+                                                                                                    if (response.isSuccessful()) {
+                                                                                                        List<CantidadIniciativasProfesor10_2> profes = response.body();
 
-                                                                                                        // Listas para los gráficos (suponiendo que quieres mostrar un gráfico con los datos)
-                                                                                                        List<Float> datosHoras = new ArrayList<>();
-                                                                                                        List<String> etiquetasHoras = new ArrayList<>();
+                                                                                                        List<Float> datosCantIniciativas = new ArrayList<>();
+                                                                                                        List<String> etiquetasNombreProf = new ArrayList<>();
 
-                                                                                                        // Procesamos las horas dedicadas y las iniciativas
-                                                                                                        for (CantHorasIniciativa12 iniciativa : horasIniciativas) {
-                                                                                                            datosHoras.add((float) iniciativa.getHorasDedicadas());
-                                                                                                            etiquetasHoras.add(iniciativa.getNombreIniciativa());
+                                                                                                        for (CantidadIniciativasProfesor10_2 item : profes) {
+                                                                                                            datosCantIniciativas.add((float) item.getCantIniciativas());
+                                                                                                            etiquetasNombreProf.add(item.getNombreProfesor());
                                                                                                         }
 
-                                                                                                        // Crear el indicador con los datos obtenidos
-                                                                                                        IndicadorCantHorasIniciativa12 indicador12 = new IndicadorCantHorasIniciativa12(
-                                                                                                                12, // id del indicador (ajústalo según corresponda)
-                                                                                                                "Horas dedicadas a cada iniciativa", // Descripción del indicador
-                                                                                                                datosHoras, // Datos para el gráfico
-                                                                                                                etiquetasHoras, // Etiquetas para el gráfico
-                                                                                                                horasIniciativas // La lista completa de iniciativas
+                                                                                                        IndicadorCantidadIniciativasProfesor10_2 indicador10_2 = new IndicadorCantidadIniciativasProfesor10_2(
+                                                                                                                102,
+                                                                                                                "Cantidad por tipo de iniciativa",
+                                                                                                                datosCantIniciativas,
+                                                                                                                etiquetasNombreProf,
+                                                                                                                profes
                                                                                                         );
 
-                                                                                                        // Ahora puedes añadir el indicador a tu lista de indicadores o hacer lo que necesites
-                                                                                                        indicadores.add(indicador12);
+                                                                                                        indicadores.add(indicador10_2);
 
-                                                                                                        // Indicador 13
-                                                                                                        apiService.getHaTenidoActividad().enqueue(new Callback<HaTenidoActividad13>() {
+                                                                                                        // Ahora vamos a añadir el Indicador 11 después del 10.1
+                                                                                                        apiService.getDiferenciaInnovadoresYNo().enqueue(new Callback<DiferenciaInnovadoresYNo11>() {
                                                                                                             @Override
-                                                                                                            public void onResponse(Call<HaTenidoActividad13> call, Response<HaTenidoActividad13> response) {
+                                                                                                            public void onResponse(Call<DiferenciaInnovadoresYNo11> call, Response<DiferenciaInnovadoresYNo11> response) {
                                                                                                                 if (response.isSuccessful() && response.body() != null) {
-                                                                                                                    HaTenidoActividad13 actividad = response.body();
+                                                                                                                    DiferenciaInnovadoresYNo11 diferencia = response.body();
 
-                                                                                                                    List<Float> datosActividad = new ArrayList<>();
-                                                                                                                    datosActividad.add(Float.parseFloat(actividad.getTieneActividades()));
-                                                                                                                    datosActividad.add(Float.parseFloat(actividad.getNoTieneActividades()));
+                                                                                                                    List<Float> datosDiferencia = new ArrayList<>();
+                                                                                                                    datosDiferencia.add((float) diferencia.getCantidadInnovadoras());
+                                                                                                                    datosDiferencia.add((float) diferencia.getCantidadNoInnovadoras());
 
-                                                                                                                    List<String> etiquetasActividad = new ArrayList<>();
-                                                                                                                    etiquetasActividad.add("Con actividades");
-                                                                                                                    etiquetasActividad.add("Sin actividades");
+                                                                                                                    List<String> etiquetasDiferencia = new ArrayList<>();
+                                                                                                                    etiquetasDiferencia.add("Innovadoras");
+                                                                                                                    etiquetasDiferencia.add("No innovadoras");
 
-                                                                                                                    IndicadorHaTenidoActividad13 indicador13 = new IndicadorHaTenidoActividad13(
-                                                                                                                            13,
-                                                                                                                            "¿Las iniciativas han tenido actividades?",
-                                                                                                                            datosActividad,
-                                                                                                                            etiquetasActividad,
-                                                                                                                            actividad
+                                                                                                                    IndicadorDiferenciaInnovadoresYNo11 indicador11 = new IndicadorDiferenciaInnovadoresYNo11(
+                                                                                                                            11,
+                                                                                                                            "Diferencia entre iniciativas innovadoras y no innovadoras",
+                                                                                                                            datosDiferencia,
+                                                                                                                            etiquetasDiferencia,
+                                                                                                                            diferencia
                                                                                                                     );
 
-                                                                                                                    indicadores.add(indicador13);
+                                                                                                                    indicadores.add(indicador11);
 
-                                                                                                                    // 🔚 Finalmente, devuelve todos los indicadores ya cargados
-                                                                                                                    callback.onResult(indicadores);
+                                                                                                                    // Ahora, obtenemos el Indicador 12 (horas dedicadas a cada iniciativa)
+                                                                                                                    apiService.getCantHorasIniciativa().enqueue(new Callback<List<CantHorasIniciativa12>>() {
+                                                                                                                        @Override
+                                                                                                                        public void onResponse(Call<List<CantHorasIniciativa12>> call, Response<List<CantHorasIniciativa12>> response) {
+                                                                                                                            if (response.isSuccessful() && response.body() != null) {
+                                                                                                                                List<CantHorasIniciativa12> horasIniciativas = response.body();
+
+                                                                                                                                // Listas para los gráficos (suponiendo que quieres mostrar un gráfico con los datos)
+                                                                                                                                List<Float> datosHoras = new ArrayList<>();
+                                                                                                                                List<String> etiquetasHoras = new ArrayList<>();
+
+                                                                                                                                // Procesamos las horas dedicadas y las iniciativas
+                                                                                                                                for (CantHorasIniciativa12 iniciativa : horasIniciativas) {
+                                                                                                                                    datosHoras.add((float) iniciativa.getHorasDedicadas());
+                                                                                                                                    etiquetasHoras.add(iniciativa.getNombreIniciativa());
+                                                                                                                                }
+
+                                                                                                                                // Crear el indicador con los datos obtenidos
+                                                                                                                                IndicadorCantHorasIniciativa12 indicador12 = new IndicadorCantHorasIniciativa12(
+                                                                                                                                        12, // id del indicador (ajústalo según corresponda)
+                                                                                                                                        "Horas dedicadas a cada iniciativa", // Descripción del indicador
+                                                                                                                                        datosHoras, // Datos para el gráfico
+                                                                                                                                        etiquetasHoras, // Etiquetas para el gráfico
+                                                                                                                                        horasIniciativas // La lista completa de iniciativas
+                                                                                                                                );
+
+                                                                                                                                // Ahora puedes añadir el indicador a tu lista de indicadores o hacer lo que necesites
+                                                                                                                                indicadores.add(indicador12);
+
+                                                                                                                                // Indicador 13
+                                                                                                                                apiService.getHaTenidoActividad().enqueue(new Callback<HaTenidoActividad13>() {
+                                                                                                                                    @Override
+                                                                                                                                    public void onResponse(Call<HaTenidoActividad13> call, Response<HaTenidoActividad13> response) {
+                                                                                                                                        if (response.isSuccessful() && response.body() != null) {
+                                                                                                                                            HaTenidoActividad13 actividad = response.body();
+
+                                                                                                                                            List<Float> datosActividad = new ArrayList<>();
+                                                                                                                                            datosActividad.add(Float.parseFloat(actividad.getTieneActividades()));
+                                                                                                                                            datosActividad.add(Float.parseFloat(actividad.getNoTieneActividades()));
+
+                                                                                                                                            List<String> etiquetasActividad = new ArrayList<>();
+                                                                                                                                            etiquetasActividad.add("Con actividades");
+                                                                                                                                            etiquetasActividad.add("Sin actividades");
+
+                                                                                                                                            IndicadorHaTenidoActividad13 indicador13 = new IndicadorHaTenidoActividad13(
+                                                                                                                                                    13,
+                                                                                                                                                    "¿Las iniciativas han tenido actividades?",
+                                                                                                                                                    datosActividad,
+                                                                                                                                                    etiquetasActividad,
+                                                                                                                                                    actividad
+                                                                                                                                            );
+
+                                                                                                                                            indicadores.add(indicador13);
+
+                                                                                                                                            // 🔚 Finalmente, devuelve todos los indicadores ya cargados
+                                                                                                                                            callback.onResult(indicadores);
+                                                                                                                                        } else {
+                                                                                                                                            Log.e(TAG, "Error en getHaTenidoActividad: Respuesta vacía o error en la API");
+                                                                                                                                            callback.onError(new Exception("Error al obtener haTenidoActividad"));
+                                                                                                                                        }
+                                                                                                                                    }
+
+                                                                                                                                    @Override
+                                                                                                                                    public void onFailure(Call<HaTenidoActividad13> call, Throwable t) {
+                                                                                                                                        Log.e(TAG, "Fallo en getHaTenidoActividad", t);
+                                                                                                                                        callback.onError(t);
+                                                                                                                                    }
+                                                                                                                                });
+
+                                                                                                                            } else {
+                                                                                                                                Log.e(TAG, "Error en getCantHorasIniciativa: Respuesta vacía o error en la API");
+                                                                                                                                callback.onError(new Exception("Error al obtener cantHorasIniciativa"));
+                                                                                                                            }
+                                                                                                                        }
+
+                                                                                                                        @Override
+                                                                                                                        public void onFailure(Call<List<CantHorasIniciativa12>> call, Throwable t) {
+                                                                                                                            Log.e(TAG, "Fallo en getCantHorasIniciativa", t);
+                                                                                                                            callback.onError(t);
+                                                                                                                        }
+                                                                                                                    });
+
                                                                                                                 } else {
-                                                                                                                    Log.e(TAG, "Error en getHaTenidoActividad: Respuesta vacía o error en la API");
-                                                                                                                    callback.onError(new Exception("Error al obtener haTenidoActividad"));
+                                                                                                                    Log.e(TAG, "Error en getDiferenciaInnovadoresYNo: Respuesta vacía o error en la API");
+                                                                                                                    callback.onError(new Exception("Error al obtener diferenciaInnovadoresYNo"));
                                                                                                                 }
                                                                                                             }
 
                                                                                                             @Override
-                                                                                                            public void onFailure(Call<HaTenidoActividad13> call, Throwable t) {
-                                                                                                                Log.e(TAG, "Fallo en getHaTenidoActividad", t);
+                                                                                                            public void onFailure(Call<DiferenciaInnovadoresYNo11> call, Throwable t) {
+                                                                                                                Log.e(TAG, "Fallo en getDiferenciaInnovadoresYNo", t);
                                                                                                                 callback.onError(t);
                                                                                                             }
                                                                                                         });
 
+
                                                                                                     } else {
-                                                                                                        Log.e(TAG, "Error en getCantHorasIniciativa: Respuesta vacía o error en la API");
-                                                                                                        callback.onError(new Exception("Error al obtener cantHorasIniciativa"));
+                                                                                                        Log.e(TAG, "Error en getCantidadIniciativasProfesor: " + (response.body() == null ? "Respuesta vacía" : "Código de error: " + response.code()));
+                                                                                                        callback.onError(new Exception("Error al obtener cantProfesores"));
                                                                                                     }
                                                                                                 }
 
                                                                                                 @Override
-                                                                                                public void onFailure(Call<List<CantHorasIniciativa12>> call, Throwable t) {
-                                                                                                    Log.e(TAG, "Fallo en getCantHorasIniciativa", t);
+                                                                                                public void onFailure(Call<List<CantidadIniciativasProfesor10_2>> call, Throwable t) {
+                                                                                                    Log.e(TAG, "Fallo en getCantidadIniciativasProfesor", t);
                                                                                                     callback.onError(t);
                                                                                                 }
                                                                                             });
 
                                                                                         } else {
-                                                                                            Log.e(TAG, "Error en getDiferenciaInnovadoresYNo: Respuesta vacía o error en la API");
-                                                                                            callback.onError(new Exception("Error al obtener diferenciaInnovadoresYNo"));
+                                                                                            Log.e(TAG, "Error en getCantProfesores: " + (response.body() == null ? "Respuesta vacía" : "Código de error: " + response.code()));
+                                                                                            callback.onError(new Exception("Error al obtener cantProfesores"));
                                                                                         }
                                                                                     }
 
                                                                                     @Override
-                                                                                    public void onFailure(Call<DiferenciaInnovadoresYNo11> call, Throwable t) {
-                                                                                        Log.e(TAG, "Fallo en getDiferenciaInnovadoresYNo", t);
+                                                                                    public void onFailure(Call<CantProfesores10_1> call, Throwable t) {
+                                                                                        Log.e(TAG, "Fallo en getCantProfesores", t);
                                                                                         callback.onError(t);
                                                                                     }
                                                                                 });
 
 
                                                                             } else {
-                                                                                Log.e(TAG, "Error en getCantidadIniciativasProfesor: " + (response.body() == null ? "Respuesta vacía" : "Código de error: " + response.code()));
-                                                                                callback.onError(new Exception("Error al obtener cantProfesores"));
+                                                                                callback.onError(new Exception("Error al obtener tipoIniciativas"));
                                                                             }
                                                                         }
 
                                                                         @Override
-                                                                        public void onFailure(Call<List<CantidadIniciativasProfesor10_2>> call, Throwable t) {
-                                                                            Log.e(TAG, "Fallo en getCantidadIniciativasProfesor", t);
+                                                                        public void onFailure(Call<List<TipoIniciativa8>> call, Throwable t) {
                                                                             callback.onError(t);
                                                                         }
                                                                     });
 
                                                                 } else {
-                                                                    Log.e(TAG, "Error en getCantProfesores: " + (response.body() == null ? "Respuesta vacía" : "Código de error: " + response.code()));
-                                                                    callback.onError(new Exception("Error al obtener cantProfesores"));
+                                                                    callback.onError(new Exception("Error al obtener tieneRRSS"));
                                                                 }
                                                             }
 
                                                             @Override
-                                                            public void onFailure(Call<CantProfesores10_1> call, Throwable t) {
-                                                                Log.e(TAG, "Fallo en getCantProfesores", t);
+                                                            public void onFailure(Call<List<TieneRRSS7>> call, Throwable t) {
                                                                 callback.onError(t);
                                                             }
                                                         });
 
 
                                                     } else {
-                                                        callback.onError(new Exception("Error al obtener tipoIniciativas"));
+                                                        callback.onError(new Exception("Error al obtener entidadesExternas"));
                                                     }
                                                 }
 
                                                 @Override
-                                                public void onFailure(Call<List<TipoIniciativa8>> call, Throwable t) {
+                                                public void onFailure(Call<List<EntidadesExternas6>> call, Throwable t) {
                                                     callback.onError(t);
                                                 }
                                             });
 
                                         } else {
-                                            callback.onError(new Exception("Error al obtener entidadesExternas"));
+                                            Log.e(TAG, "Error en getExplicacionIniciativas: Respuesta vacía o error en la API");
+                                            callback.onError(new Exception("Error al obtener explicacionIniciativas"));
                                         }
                                     }
 
                                     @Override
-                                    public void onFailure(Call<List<EntidadesExternas6>> call, Throwable t) {
+                                    public void onFailure(Call<List<ExplicacionIniciativas4>> call, Throwable t) {
+                                        Log.e(TAG, "Fallo en getExplicacionIniciativas", t);
                                         callback.onError(t);
                                     }
                                 });
+
 
                             } else {
                                 callback.onError(new Exception("Error al obtener cantidadIniciativas"));
