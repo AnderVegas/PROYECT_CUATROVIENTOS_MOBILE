@@ -45,6 +45,41 @@
             android:background="#EFEFEF"
             android:padding="8dp"/>
 
+        <!-- Pie chart para indicador 5 -->
+        <com.github.mikephil.charting.charts.PieChart
+            android:id="@+id/pieChartIndicador"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:visibility="gone"
+            android:layout_marginTop="12dp" />
+
+        <!-- Texto de ODS seleccionado -->
+        <TextView
+            android:id="@+id/textOdsSeleccionado"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Selecciona una meta"
+            android:textSize="16sp"
+            android:textStyle="italic"
+            android:paddingTop="12dp"
+            android:visibility="gone" />
+
+        <!-- Lista de cursos -->
+        <ListView
+            android:id="@+id/listCursos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:paddingTop="8dp" />
+
+        <!-- Lista de módulos -->
+        <ListView
+            android:id="@+id/listModulos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:paddingTop="8dp" />
+
 
     </LinearLayout>
 
