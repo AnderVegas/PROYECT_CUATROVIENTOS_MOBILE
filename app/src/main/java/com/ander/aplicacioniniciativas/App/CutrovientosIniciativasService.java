@@ -75,7 +75,7 @@ public interface CutrovientosIniciativasService {
 
     // Indicador 11
     @GET("indicadores/diferenciaInnovadoresYNo")
-    Call<DiferenciaInnovadoresYNo11> getDiferenciaInnovadoresYNo();
+    Call<List<DiferenciaInnovadoresYNo11>> getDiferenciaInnovadoresYNo();
 
     // Indicador 12
     @GET("indicadores/cantHorasIniciativa")
@@ -83,6 +83,6 @@ public interface CutrovientosIniciativasService {
 
     // Indicador 13
     @GET("indicadores/haTendioActividad")
-    Call<HaTenidoActividad13> getHaTenidoActividad();
+    Call<List<HaTenidoActividad13>> getHaTenidoActividad();
 
 }

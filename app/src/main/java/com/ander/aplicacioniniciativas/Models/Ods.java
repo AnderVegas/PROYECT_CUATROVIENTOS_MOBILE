@@ -2,12 +2,13 @@ package com.ander.aplicacioniniciativas.Models;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.List;
 
 import io.realm.RealmList;
 import io.realm.RealmObject;
 
-public class Ods {
+public class Ods implements Serializable {
     @SerializedName(value = "id", alternate = {"idOds"})
     private int idOds;
     private String nombre;

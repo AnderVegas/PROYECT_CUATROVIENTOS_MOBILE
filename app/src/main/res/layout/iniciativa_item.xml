@@ -79,7 +79,10 @@
                             android:text="Descripción"
                             android:textColor="@android:color/darker_gray"
                             android:textSize="14sp"
-                            android:paddingBottom="8dp"/>
+                            android:maxLines="1"
+                            android:ellipsize="end"
+                            android:paddingBottom="8dp"
+                            android:lineSpacingExtra="2dp"/>
 
                         <!-- Contenedor de clase y fecha -->
                         <LinearLayout

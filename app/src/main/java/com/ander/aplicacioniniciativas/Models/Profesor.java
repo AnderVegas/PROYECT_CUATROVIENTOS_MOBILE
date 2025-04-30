@@ -1,8 +1,10 @@
 package com.ander.aplicacioniniciativas.Models;
 
+import java.io.Serializable;
+
 import io.realm.RealmObject;
 
-public class Profesor {
+public class Profesor implements Serializable {
     private int idProfesor;
     private String nombre;
 

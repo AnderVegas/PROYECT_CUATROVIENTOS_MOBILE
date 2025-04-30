@@ -390,7 +390,15 @@ public class IniciativasActivity extends AppCompatActivity {
             iniciativasFiltradas = iniciativasFavoritas;
         }
 
-        adapter = new RecyclerDataAdapter(iniciativasFiltradas);
+        adapter = new RecyclerDataAdapter(iniciativasFiltradas, new RecyclerDataAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(Iniciativa iniciativa) {
+                Intent intent = new Intent(IniciativasActivity.this, IniciativaDetalleActivity.class);
+
+                intent.putExtra("iniciativa", iniciativa);
+                startActivity(intent);
+            }
+        });
         recyclerViewIniciativas.setAdapter(adapter);
 
     }

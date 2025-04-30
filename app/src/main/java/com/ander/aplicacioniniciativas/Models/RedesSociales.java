@@ -2,7 +2,9 @@ package com.ander.aplicacioniniciativas.Models;
 
 import com.google.gson.annotations.SerializedName;
 
-public class RedesSociales {
+import java.io.Serializable;
+
+public class RedesSociales implements Serializable {
 
     @SerializedName(value = "id")
     private int idRed;

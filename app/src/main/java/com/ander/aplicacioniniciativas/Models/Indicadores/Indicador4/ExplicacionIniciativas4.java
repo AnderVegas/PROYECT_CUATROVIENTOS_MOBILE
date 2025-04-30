@@ -4,9 +4,9 @@ import com.google.gson.annotations.SerializedName;
 
 public class ExplicacionIniciativas4 {
 
-    @SerializedName(value = "Nombre")
+    @SerializedName(value = "nombre")
     private String nombre;
-    @SerializedName(value = "Explicacion")
+    @SerializedName(value = "explicacion")
     private String explicacion;
 
     public ExplicacionIniciativas4(String nombre, String explicacion) {

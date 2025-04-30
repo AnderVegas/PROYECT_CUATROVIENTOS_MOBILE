@@ -29,12 +29,15 @@ import com.ander.aplicacioniniciativas.Models.Indicadores.Indicador7.IndicadorTi
 import com.ander.aplicacioniniciativas.Models.Indicadores.Indicador7.TieneRRSS7;
 import com.ander.aplicacioniniciativas.R;
 import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
@@ -84,6 +87,7 @@ public class RecyclerDataAdapterIndicadores extends RecyclerView.Adapter<Recycle
         private ListView listCursos;
         private ListView listModulos;
         private Set<String> ciclosExpandidos = new HashSet<>();
+        private LineChart lineChart;
 
 
         public RecyclerDataHolder(@NonNull View itemView) {
@@ -95,6 +99,7 @@ public class RecyclerDataAdapterIndicadores extends RecyclerView.Adapter<Recycle
             textOdsSeleccionado = itemView.findViewById(R.id.textOdsSeleccionado);
             listCursos = itemView.findViewById(R.id.listCursos);
             listModulos = itemView.findViewById(R.id.listModulos);
+            lineChart = itemView.findViewById(R.id.lineChartIndicador);
 
         }
 
@@ -328,8 +333,55 @@ public class RecyclerDataAdapterIndicadores extends RecyclerView.Adapter<Recycle
                 return;
             }
 
+            if (indicador.getIdIndicador() == 1) {
+                chart.setVisibility(View.GONE);
+                pieChart.setVisibility(View.GONE);
+                table.setVisibility(View.GONE);
 
-            // Si no es el indicador 3/4/5/7, mostramos el gráfico como siempre
+                LineChart lineChart = itemView.findViewById(R.id.lineChartIndicador);
+                lineChart.setVisibility(View.VISIBLE);
+                lineChart.clear();
+
+                List<Float> datos = indicador.getDatosGrafico();
+                List<String> etiquetas = indicador.getEtiquetasEjeX();
+
+                if (datos == null || datos.isEmpty()) {
+                    lineChart.setNoDataText("Sin datos disponibles");
+                    return;
+                }
+
+                List<Entry> entries = new ArrayList<>();
+                for (int i = 0; i < datos.size(); i++) {
+                    entries.add(new Entry(i, datos.get(i)));
+                }
+
+                LineDataSet dataSet = new LineDataSet(entries, "Valores");
+                dataSet.setColor(Color.BLUE);
+                dataSet.setValueTextColor(Color.BLACK);
+                dataSet.setLineWidth(2f);
+                dataSet.setCircleRadius(4f);
+                dataSet.setCircleColor(Color.RED);
+
+                LineData lineData = new LineData(dataSet);
+                lineChart.setData(lineData);
+
+                XAxis xAxis = lineChart.getXAxis();
+                xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+                xAxis.setGranularity(1f);
+                xAxis.setDrawGridLines(false);
+                if (etiquetas != null && etiquetas.size() == datos.size()) {
+                    xAxis.setValueFormatter(new IndexAxisValueFormatter(etiquetas));
+                }
+
+                lineChart.getAxisRight().setEnabled(false);
+                lineChart.getDescription().setEnabled(false);
+                lineChart.animateX(1000);
+                lineChart.invalidate();
+
+                return;
+            }
+
+
             chart.setVisibility(View.VISIBLE);
             table.setVisibility(View.GONE);
 

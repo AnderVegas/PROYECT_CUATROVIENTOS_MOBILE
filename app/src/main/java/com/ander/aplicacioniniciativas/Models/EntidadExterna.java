@@ -1,6 +1,8 @@
 package com.ander.aplicacioniniciativas.Models;
 
-public class EntidadExterna {
+import java.io.Serializable;
+
+public class EntidadExterna implements Serializable {
     private int idEntidadExterna;
     private String nombre;
 

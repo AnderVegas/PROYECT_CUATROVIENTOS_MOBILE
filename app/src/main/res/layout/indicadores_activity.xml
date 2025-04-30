@@ -67,54 +67,17 @@
 
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/menuTabs"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center"
-            app:layout_constraintTop_toBottomOf="@id/headerLayout"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
-
-            <!-- Botón Favoritos -->
-            <TextView
-                android:id="@+id/textViewIniciativas"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="INICIATIVAS"
-                android:textColor="#333333"
-                android:textSize="17sp"
-                android:fontFamily="@font/poppins_regular"
-                android:clickable="true"/>
-
-            <TextView
-                android:id="@+id/textViewFavoritos"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="FAVORITOS"
-                android:textColor="#333333"
-                android:textSize="17sp"
-                android:fontFamily="@font/poppins_regular"
-                android:clickable="true"/>
-
-        </LinearLayout>
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginTop="60dp"
+            android:layout_marginTop="10dp"
             android:orientation="vertical"
             android:padding="8dp"
             app:layout_constraintBottom_toTopOf="@+id/cardFooter"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/menuTabs"
+            app:layout_constraintTop_toBottomOf="@+id/headerLayout"
             tools:listitem="@layout/indicador_item" />
 
 

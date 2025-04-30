@@ -294,15 +294,17 @@ public class ServiceIndicadores {
                                                                                                                                 indicadores.add(indicador10_2);
 
                                                                                                                                 // Indicador 11
-                                                                                                                                apiService.getDiferenciaInnovadoresYNo().enqueue(new Callback<DiferenciaInnovadoresYNo11>() {
+                                                                                                                                apiService.getDiferenciaInnovadoresYNo().enqueue(new Callback<List<DiferenciaInnovadoresYNo11>>() {
                                                                                                                                     @Override
-                                                                                                                                    public void onResponse(Call<DiferenciaInnovadoresYNo11> call, Response<DiferenciaInnovadoresYNo11> response) {
-                                                                                                                                        if (response.isSuccessful() && response.body() != null) {
-                                                                                                                                            DiferenciaInnovadoresYNo11 diferencia = response.body();
+                                                                                                                                    public void onResponse(Call<List<DiferenciaInnovadoresYNo11>> call, Response<List<DiferenciaInnovadoresYNo11>> response) {
+                                                                                                                                        if (response.isSuccessful() && response.body() != null && !response.body().isEmpty()) {
+                                                                                                                                            List<DiferenciaInnovadoresYNo11> diferencia = response.body();
+
+                                                                                                                                            DiferenciaInnovadoresYNo11 dato = diferencia.get(0); // como es solo uno
 
                                                                                                                                             List<Float> datosDiferencia = new ArrayList<>();
-                                                                                                                                            datosDiferencia.add((float) diferencia.getCantidadInnovadoras());
-                                                                                                                                            datosDiferencia.add((float) diferencia.getCantidadNoInnovadoras());
+                                                                                                                                            datosDiferencia.add((float) dato.getCantidadInnovadoras());
+                                                                                                                                            datosDiferencia.add((float) dato.getCantidadNoInnovadoras());
 
                                                                                                                                             List<String> etiquetasDiferencia = new ArrayList<>();
                                                                                                                                             etiquetasDiferencia.add("Innovadoras");
@@ -313,7 +315,7 @@ public class ServiceIndicadores {
                                                                                                                                                     "Diferencia entre iniciativas innovadoras y no innovadoras",
                                                                                                                                                     datosDiferencia,
                                                                                                                                                     etiquetasDiferencia,
-                                                                                                                                                    diferencia
+                                                                                                                                                    diferencia // se guarda como lista por si cambia el backend en el futuro
                                                                                                                                             );
 
                                                                                                                                             indicadores.add(indicador11);
@@ -345,15 +347,17 @@ public class ServiceIndicadores {
                                                                                                                                                         indicadores.add(indicador12);
 
                                                                                                                                                         // Indicador 13
-                                                                                                                                                        apiService.getHaTenidoActividad().enqueue(new Callback<HaTenidoActividad13>() {
+                                                                                                                                                        apiService.getHaTenidoActividad().enqueue(new Callback<List<HaTenidoActividad13>>() {
                                                                                                                                                             @Override
-                                                                                                                                                            public void onResponse(Call<HaTenidoActividad13> call, Response<HaTenidoActividad13> response) {
+                                                                                                                                                            public void onResponse(Call<List<HaTenidoActividad13>> call, Response<List<HaTenidoActividad13>> response) {
                                                                                                                                                                 if (response.isSuccessful() && response.body() != null) {
-                                                                                                                                                                    HaTenidoActividad13 actividad = response.body();
+                                                                                                                                                                    List<HaTenidoActividad13> actividad = response.body();
+
+                                                                                                                                                                    HaTenidoActividad13 datos = actividad.get(0); // como es solo uno
 
                                                                                                                                                                     List<Float> datosActividad = new ArrayList<>();
-                                                                                                                                                                    datosActividad.add(Float.parseFloat(actividad.getTieneActividades()));
-                                                                                                                                                                    datosActividad.add(Float.parseFloat(actividad.getNoTieneActividades()));
+                                                                                                                                                                    datosActividad.add(Float.parseFloat(datos.getTieneActividades()));
+                                                                                                                                                                    datosActividad.add(Float.parseFloat(datos.getNoTieneActividades()));
 
                                                                                                                                                                     List<String> etiquetasActividad = new ArrayList<>();
                                                                                                                                                                     etiquetasActividad.add("Con actividades");
@@ -379,7 +383,7 @@ public class ServiceIndicadores {
                                                                                                                                                             }
 
                                                                                                                                                             @Override
-                                                                                                                                                            public void onFailure(Call<HaTenidoActividad13> call, Throwable t) {
+                                                                                                                                                            public void onFailure(Call<List<HaTenidoActividad13>> call, Throwable t) {
                                                                                                                                                                 Log.e(TAG, "Fallo en getHaTenidoActividad", t);
                                                                                                                                                                 callback.onError(t);
                                                                                                                                                             }
@@ -405,7 +409,7 @@ public class ServiceIndicadores {
                                                                                                                                     }
 
                                                                                                                                     @Override
-                                                                                                                                    public void onFailure(Call<DiferenciaInnovadoresYNo11> call, Throwable t) {
+                                                                                                                                    public void onFailure(Call<List<DiferenciaInnovadoresYNo11>> call, Throwable t) {
                                                                                                                                         Log.e(TAG, "Fallo en getDiferenciaInnovadoresYNo", t);
                                                                                                                                         callback.onError(t);
                                                                                                                                     }

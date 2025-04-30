@@ -1,6 +1,7 @@
 package com.ander.aplicacioniniciativas.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.ander.aplicacioniniciativas.Activities.IniciativaDetalleActivity;
 import com.ander.aplicacioniniciativas.Models.Iniciativa;
 import com.ander.aplicacioniniciativas.R;
 import com.bumptech.glide.Glide;
@@ -20,9 +22,11 @@ import java.util.List;
 public class RecyclerDataAdapter extends RecyclerView.Adapter<RecyclerDataAdapter.RecyclerDataHolder>{
 
     private List<Iniciativa> listData;
+    private OnItemClickListener listener;
 
-    public RecyclerDataAdapter(List<Iniciativa> listData){
+    public RecyclerDataAdapter(List<Iniciativa> listData, OnItemClickListener listener){
         this.listData = listData;
+        this.listener = listener;
     }
 
     @NonNull
@@ -94,6 +98,13 @@ public class RecyclerDataAdapter extends RecyclerView.Adapter<RecyclerDataAdapte
                 iniciativa.setEsFavorito(!iniciativa.isEsFavorito());
                 actualizarIconoFavorito(iniciativa.isEsFavorito());
             });
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    listener.onItemClick(iniciativa);
+                }
+            });
         }
 
         private void actualizarIconoFavorito(boolean esFavorito) {
@@ -104,4 +115,9 @@ public class RecyclerDataAdapter extends RecyclerView.Adapter<RecyclerDataAdapte
             }
         }
     }
+
+    public interface OnItemClickListener {
+        void onItemClick(Iniciativa iniciativa);
+    }
+
 }

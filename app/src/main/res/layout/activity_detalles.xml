@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white">
+
+    <!-- Cabecera -->
+    <LinearLayout
+        android:id="@+id/headerLayout"
+        android:layout_width="match_parent"
+        android:layout_height="82dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:padding="16dp">
+
+        <!-- Botón desplegable -->
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toggleDesplegable"
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:layout_weight="1"
+            app:logo="@drawable/desplegable" />
+
+        <!-- Logo principal -->
+        <ImageView
+            android:id="@+id/imageViewLogo"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="3"
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/logo4v_photoroom_1" />
+
+        <!-- Icono lupa -->
+        <ImageView
+            android:id="@+id/imageViewlupa"
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            android:layout_weight="1"
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/vacio" />
+    </LinearLayout>
+
+    <!-- Contenido desplazable -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="24dp"
+            android:gravity="center_horizontal">
+
+            <ImageView
+                android:id="@+id/imageIniciativa"
+                android:layout_width="match_parent"
+                android:layout_height="220dp"
+                android:scaleType="centerCrop"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/image_background"
+                android:contentDescription="Imagen de la iniciativa" />
+
+            <TextView
+                android:id="@+id/textNombre"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Nombre de la Iniciativa"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:textColor="#212121"
+                android:layout_marginBottom="8dp" />
+
+            <TextView
+                android:id="@+id/textFechas"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Del 10 al 20 de Abril"
+                android:textColor="#757575"
+                android:textSize="14sp"
+                android:layout_marginBottom="4dp" />
+
+            <TextView
+                android:id="@+id/textTipoHoras"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Tipo: Voluntariado - 20 horas"
+                android:textColor="#757575"
+                android:textSize="14sp"
+                android:layout_marginBottom="16dp" />
+
+            <TextView
+                android:id="@+id/textDescripcion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Esta iniciativa busca fomentar el compromiso social a través de..."
+                android:textColor="#424242"
+                android:textSize="16sp"
+                android:lineSpacingExtra="4dp"
+                android:layout_marginBottom="24dp" />
+
+            <TextView
+                android:id="@+id/textProfesores"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Profesores responsables: Juan Pérez, Ana Gómez"
+                android:textColor="#388E3C"
+                android:textStyle="italic"
+                android:textSize="14sp"
+                android:layout_marginBottom="12dp" />
+
+            <TextView
+                android:id="@+id/textEntidades"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Entidades colaboradoras: Cruz Roja, ONG Verde"
+                android:textColor="#0288D1"
+                android:textSize="14sp"
+                android:layout_marginBottom="20dp" />
+        </LinearLayout>
+
+    </ScrollView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardFooter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:backgroundTint="@android:color/white"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:translationZ="10dp">
+
+        <!-- Contenedor interior del CardView (LinearLayout) -->
+        <LinearLayout
+            android:id="@+id/linearLayoutBajo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="16dp">
+
+            <ImageView
+                android:id="@+id/imageViewCasa"
+                android:layout_width="0dp"
+                android:layout_height="35dp"
+                android:layout_weight="1"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/casa" />
+
+            <ImageView
+                android:id="@+id/imageViewGuardado"
+                android:layout_width="0dp"
+                android:layout_height="35dp"
+                android:layout_weight="1"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/indicadore" />
+
+            <ImageView
+                android:id="@+id/imageViewPerfil"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/perfil" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>

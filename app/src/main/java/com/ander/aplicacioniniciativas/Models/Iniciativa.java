@@ -2,9 +2,10 @@ package com.ander.aplicacioniniciativas.Models;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Iniciativa {
+public class Iniciativa implements Serializable {
     private int id;
     private String tipo;
     private String horas;

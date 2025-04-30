@@ -4,6 +4,7 @@ public class IniciativasPorCurso1 {
 
     private String nombreCurso;
     private int numIniciativas;
+    private boolean eliminado;
 
     public IniciativasPorCurso1() {
     }
@@ -27,5 +28,13 @@ public class IniciativasPorCurso1 {
 
     public void setNumIniciativas(int numIniciativas) {
         this.numIniciativas = numIniciativas;
+    }
+
+    public boolean isEliminado() {
+        return eliminado;
+    }
+
+    public void setEliminado(boolean eliminado) {
+        this.eliminado = eliminado;
     }
 }

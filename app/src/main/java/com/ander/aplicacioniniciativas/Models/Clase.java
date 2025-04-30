@@ -2,7 +2,9 @@ package com.ander.aplicacioniniciativas.Models;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Clase {
+import java.io.Serializable;
+
+public class Clase implements Serializable {
     @SerializedName(value = "id", alternate = {"idClase"})
     private int idCurso;
 

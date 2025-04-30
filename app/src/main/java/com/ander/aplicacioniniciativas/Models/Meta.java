@@ -2,7 +2,9 @@ package com.ander.aplicacioniniciativas.Models;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Meta {
+import java.io.Serializable;
+
+public class Meta implements Serializable {
     private int idMeta;
     private String descripcion;
 

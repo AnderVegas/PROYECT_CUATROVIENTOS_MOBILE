@@ -1,8 +1,9 @@
 package com.ander.aplicacioniniciativas.Models;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Indicador {
+public class Indicador implements Serializable {
     
     private int idIndicador;
     

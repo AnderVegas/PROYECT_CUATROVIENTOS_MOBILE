@@ -6,21 +6,21 @@ import java.util.List;
 
 public class IndicadorHaTenidoActividad13 extends Indicador {
 
-    private HaTenidoActividad13 haTenidoActividad;
+    private List<HaTenidoActividad13> haTenidoActividad;
 
     public IndicadorHaTenidoActividad13() {
     }
 
-    public IndicadorHaTenidoActividad13(int idIndicador, String descripcion, List<Float> datosGraficos, List<String> etiquetasEjeX, HaTenidoActividad13 haTenidoActividad13) {
+    public IndicadorHaTenidoActividad13(int idIndicador, String descripcion, List<Float> datosGraficos, List<String> etiquetasEjeX, List<HaTenidoActividad13> haTenidoActividad) {
         super(idIndicador, descripcion, datosGraficos, etiquetasEjeX);
-        this.haTenidoActividad = haTenidoActividad13;
+        this.haTenidoActividad = haTenidoActividad;
     }
 
-    public HaTenidoActividad13 getHaTenidoActividad() {
+    public List<HaTenidoActividad13> getHaTenidoActividad() {
         return haTenidoActividad;
     }
 
-    public void setHaTenidoActividad(HaTenidoActividad13 haTenidoActividad13) {
-        this.haTenidoActividad = haTenidoActividad13;
+    public void setHaTenidoActividad(List<HaTenidoActividad13> haTenidoActividad) {
+        this.haTenidoActividad = haTenidoActividad;
     }
 }

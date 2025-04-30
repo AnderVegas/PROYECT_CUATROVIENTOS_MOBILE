@@ -6,21 +6,21 @@ import java.util.List;
 
 public class IndicadorDiferenciaInnovadoresYNo11 extends Indicador {
 
-    private DiferenciaInnovadoresYNo11 diferenciaInnovadoresYNo;
+    private List<DiferenciaInnovadoresYNo11> diferenciaInnovadoresYNo;
 
     public IndicadorDiferenciaInnovadoresYNo11() {
     }
 
-    public IndicadorDiferenciaInnovadoresYNo11(int idIndicador, String descripcion, List<Float> datosGraficos, List<String> etiquetasEjeX, DiferenciaInnovadoresYNo11 diferenciaInnovadoresYNo11) {
+    public IndicadorDiferenciaInnovadoresYNo11(int idIndicador, String descripcion, List<Float> datosGraficos, List<String> etiquetasEjeX, List<DiferenciaInnovadoresYNo11> diferenciaInnovadoresYNo) {
         super(idIndicador, descripcion, datosGraficos, etiquetasEjeX);
-        this.diferenciaInnovadoresYNo = diferenciaInnovadoresYNo11;
+        this.diferenciaInnovadoresYNo = diferenciaInnovadoresYNo;
     }
 
-    public DiferenciaInnovadoresYNo11 getDiferenciaInnovadoresYNo() {
+    public List<DiferenciaInnovadoresYNo11> getDiferenciaInnovadoresYNo() {
         return diferenciaInnovadoresYNo;
     }
 
-    public void setDiferenciaInnovadoresYNo(DiferenciaInnovadoresYNo11 diferenciaInnovadoresYNo11) {
+    public void setDiferenciaInnovadoresYNo(List<DiferenciaInnovadoresYNo11> diferenciaInnovadoresYNo11) {
         this.diferenciaInnovadoresYNo = diferenciaInnovadoresYNo11;
     }
 }
