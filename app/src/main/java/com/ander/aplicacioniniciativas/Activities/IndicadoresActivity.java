@@ -3,12 +3,15 @@ package com.ander.aplicacioniniciativas.Activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,7 +26,7 @@ import com.google.android.material.navigation.NavigationView;
 
 import java.util.List;
 
-public class IndicadoresActivity extends AppCompatActivity {
+public class IndicadoresActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private RecyclerView recyclerViewIndicadores;
     private RecyclerDataAdapterIndicadores adapter;
@@ -71,11 +74,13 @@ public class IndicadoresActivity extends AppCompatActivity {
         navigationView = findViewById(R.id.nav_view);
         setSupportActionBar(toolBar);
 
+        navigationView.bringToFront();
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawerLayout, toolBar, R.string.navigation_drawer_open, R.string.navigation_drawer_close
         );
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
+        navigationView.setNavigationItemSelectedListener(this);
 
         // Botón de navegación a iniciativas
         botonIniciativas = findViewById(R.id.imageViewCasa);
@@ -85,5 +90,36 @@ public class IndicadoresActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onBackPressed(){
+        if(drawerLayout.isDrawerOpen(GravityCompat.START)){
+            drawerLayout.closeDrawer(GravityCompat.START);
+        }else{
+            super.onBackPressed();
+        }
+    }
 
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.nav_home) {
+            startActivity(new Intent(this, IniciativasActivity.class));
+        } else if (id == R.id.nav_indicadores) {
+
+        } else if (id == R.id.nav_login) {
+            startActivity(new Intent(this, MainActivity.class));
+        } else if (id == R.id.nav_logout) {
+            startActivity(new Intent(this, MainActivity.class));
+        } else if (id == R.id.nav_Profile) {
+            // Acción para "Perfil"
+        } else if (id == R.id.nav_share) {
+            // Acción para "Compartir"
+        } else if (id == R.id.nav_rate) {
+            // Acción para "Valorar"
+        }
+
+        drawerLayout.closeDrawer(GravityCompat.START);
+        return true;
+    }
 }

@@ -9,18 +9,18 @@
             android:icon="@drawable/iconhome"/>
 
         <item
-            android:id="@+id/nav_sesion"
+            android:id="@+id/nav_indicadores"
             android:title="Indicadores"
             android:icon="@drawable/indicators"/>
 
     </group>
 
-    <group android:checkableBehavior="single">
-
         <item
             android:title="Cuenta">
 
             <menu>
+
+                <group android:checkableBehavior="single">
 
                 <item
                     android:id="@+id/nav_login"
@@ -37,12 +37,13 @@
                     android:title="Cerrar sesión"
                     android:icon="@drawable/logout"/>
 
+                </group>
 
             </menu>
 
         </item>
 
-    </group>
+
 
     <item android:title="Otros">
 

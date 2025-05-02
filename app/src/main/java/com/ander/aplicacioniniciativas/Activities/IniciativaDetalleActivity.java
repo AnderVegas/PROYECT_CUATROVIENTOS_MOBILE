@@ -20,6 +20,7 @@ public class IniciativaDetalleActivity extends AppCompatActivity implements Seri
 
     private ImageView imageCasa;
     private ImageView imageIniciativa;
+    private ImageView flechaAtras;
     private TextView textNombre, textFechas, textTipoHoras, textDescripcion, textProfesores, textEntidades;
 
     @Override
@@ -38,9 +39,14 @@ public class IniciativaDetalleActivity extends AppCompatActivity implements Seri
         textDescripcion = findViewById(R.id.textDescripcion);
         textProfesores = findViewById(R.id.textProfesores);
         textEntidades = findViewById(R.id.textEntidades);
+        flechaAtras = findViewById(R.id.imageAtras);
 
         // Volver al incio
         imageCasa.setOnClickListener(view -> {
+            finish();
+        });
+
+        flechaAtras.setOnClickListener(view -> {
             finish();
         });
 

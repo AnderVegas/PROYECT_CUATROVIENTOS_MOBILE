@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -16,11 +17,13 @@ import android.widget.Spinner;
 import android.widget.AdapterView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.widget.Toolbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -47,7 +50,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class IniciativasActivity extends AppCompatActivity {
+public class IniciativasActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private RecyclerView recyclerViewIniciativas;
     private RecyclerDataAdapter adapter;
@@ -107,9 +110,11 @@ public class IniciativasActivity extends AppCompatActivity {
 
         setSupportActionBar(toolBar);
 
+        navigationView.bringToFront();
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolBar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
+        navigationView.setNavigationItemSelectedListener(this);
 
         // Boton para pantalla de indicadores
         botonIndicadores = findViewById(R.id.imageViewIndicadores);
@@ -442,4 +447,38 @@ public class IniciativasActivity extends AppCompatActivity {
             return true;
         }
     }
+
+    @Override
+    public void onBackPressed(){
+        if(drawerLayout.isDrawerOpen(GravityCompat.START)){
+            drawerLayout.closeDrawer(GravityCompat.START);
+        }else{
+            super.onBackPressed();
+        }
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.nav_home) {
+            // Acción para "Inicio"
+        } else if (id == R.id.nav_indicadores) {
+            startActivity(new Intent(this, IndicadoresActivity.class));
+        } else if (id == R.id.nav_login) {
+            startActivity(new Intent(this, MainActivity.class));
+        } else if (id == R.id.nav_logout) {
+            startActivity(new Intent(this, MainActivity.class));
+        } else if (id == R.id.nav_Profile) {
+            // Acción para "Perfil"
+        } else if (id == R.id.nav_share) {
+            // Acción para "Compartir"
+        } else if (id == R.id.nav_rate) {
+            // Acción para "Valorar"
+        }
+
+        drawerLayout.closeDrawer(GravityCompat.START);
+        return true;
+    }
+
 }

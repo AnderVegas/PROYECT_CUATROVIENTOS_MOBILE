@@ -15,13 +15,13 @@
         android:orientation="horizontal"
         android:padding="16dp">
 
-        <!-- Botón desplegable -->
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toggleDesplegable"
+        <ImageView
+            android:id="@+id/imageAtras"
             android:layout_width="0dp"
-            android:layout_height="35dp"
+            android:layout_height="30dp"
             android:layout_weight="1"
-            app:logo="@drawable/desplegable" />
+            android:scaleType="fitCenter"
+            app:srcCompat="@drawable/flecha_atras" />
 
         <!-- Logo principal -->
         <ImageView
