@@ -68,17 +68,20 @@ public class RecyclerDataAdapter extends RecyclerView.Adapter<RecyclerDataAdapte
             dataTextTitulo.setText(iniciativa.getNombre());
             dataTextDescripcion.setText(iniciativa.getProducto_final());
 
-            String curso = "";
-            if (!iniciativa.getModulos().isEmpty() && iniciativa.getModulos().get(0).getCurso() != null) {
-                curso = iniciativa.getModulos().get(0).getCurso().getNombre();
-                String prefix = "Clase de ";
-                if (curso.toLowerCase().startsWith(prefix.toLowerCase())) {
-                    curso = curso.substring(prefix.length());
+            String nombreCurso = "Sin clases";
+            if (!iniciativa.getModulos().isEmpty()) {
+                for (int i = 0; i < iniciativa.getModulos().size(); i++) {
+                    if (iniciativa.getModulos().get(i).getCurso() != null && !iniciativa.getModulos().get(i).getCurso().isEmpty()) {
+                        nombreCurso = iniciativa.getModulos().get(i).getCurso().get(0).getNombre();
+                        break;
+                    } else if (iniciativa.getModulos().get(i).getCurso() != null && !iniciativa.getModulos().get(i).getCurso().isEmpty()) {
+                        nombreCurso = iniciativa.getModulos().get(i).getCurso().get(0).getNombre();
+                        break;
+                    }
                 }
-                dataTextClase.setText("Clase de " + curso);
-            } else {
-                curso = "Sin clase asignada";
             }
+
+            dataTextClase.setText(nombreCurso);
 
             dataTextFecha.setText(iniciativa.getFechaInicio().split(" ")[0]);
 

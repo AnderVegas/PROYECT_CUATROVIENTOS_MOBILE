@@ -31,6 +31,7 @@ import com.ander.aplicacioniniciativas.App.ApiClient;
 import com.ander.aplicacioniniciativas.App.CutrovientosIniciativasService;
 import com.ander.aplicacioniniciativas.Models.Clase;
 import com.ander.aplicacioniniciativas.Models.Iniciativa;
+import com.ander.aplicacioniniciativas.Models.Modulo;
 import com.ander.aplicacioniniciativas.Models.Ods;
 import com.ander.aplicacioniniciativas.R;
 import com.google.android.material.navigation.NavigationView;
@@ -218,7 +219,13 @@ public class IniciativasActivity extends AppCompatActivity {
         spinnerClases.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                claseSeleccionado = (Clase) parent.getItemAtPosition(position);
+                Clase claseSeleccionadaTmp = (Clase) parent.getItemAtPosition(position);
+                if (claseSeleccionadaTmp != null && claseSeleccionadaTmp.getIdCurso() != 0) {
+                    claseSeleccionado = claseSeleccionadaTmp;
+                } else {
+                    claseSeleccionado = null;
+                }
+
                 actualizarListaFiltrada();
             }
 
@@ -357,9 +364,21 @@ public class IniciativasActivity extends AppCompatActivity {
                 cumpleCurso = true;
             } else {
                 if (iniciativa.getModulos() != null && !iniciativa.getModulos().isEmpty()) {
-                    int idCurso = iniciativa.getModulos().get(0).getCurso().getIdCurso();
-                    cumpleCurso = (idCurso == claseSeleccionado.getIdCurso());
+                    for (Modulo modulo : iniciativa.getModulos()) {
+                        List<Clase> clasesModulo = modulo.getCurso();
+                        if (clasesModulo != null) {
+                            for (Clase clase : clasesModulo) {
+                                if (clase.getIdCurso() == claseSeleccionado.getIdCurso()) {
+                                    cumpleCurso = true;
+                                    break;
+                                }
+                            }
+                        }
+                        if (cumpleCurso) break;
+                    }
                 }
+
+
             }
 
             // Filtrado por ODS
