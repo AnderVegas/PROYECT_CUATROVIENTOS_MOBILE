@@ -51,6 +51,12 @@
             android:background="#EFEFEF"
             android:padding="8dp"/>
 
+        <com.github.mikephil.charting.charts.HorizontalBarChart
+            android:id="@+id/horizontalBarChartIndicador"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:visibility="gone"/>
+
         <!-- Pie chart para indicador 5 -->
         <com.github.mikephil.charting.charts.PieChart
             android:id="@+id/pieChartIndicador"

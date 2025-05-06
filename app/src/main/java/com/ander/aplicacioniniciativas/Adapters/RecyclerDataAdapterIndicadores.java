@@ -29,6 +29,7 @@ import com.ander.aplicacioniniciativas.Models.Indicadores.Indicador7.IndicadorTi
 import com.ander.aplicacioniniciativas.Models.Indicadores.Indicador7.TieneRRSS7;
 import com.ander.aplicacioniniciativas.R;
 import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.charts.HorizontalBarChart;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.XAxis;
@@ -48,6 +49,7 @@ import com.github.mikephil.charting.listener.OnChartValueSelectedListener;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Random;
 import java.util.Set;
 
 
@@ -88,6 +90,7 @@ public class RecyclerDataAdapterIndicadores extends RecyclerView.Adapter<Recycle
         private ListView listModulos;
         private Set<String> ciclosExpandidos = new HashSet<>();
         private LineChart lineChart;
+        private HorizontalBarChart horizontalBarChart;
 
 
         public RecyclerDataHolder(@NonNull View itemView) {
@@ -100,6 +103,7 @@ public class RecyclerDataAdapterIndicadores extends RecyclerView.Adapter<Recycle
             listCursos = itemView.findViewById(R.id.listCursos);
             listModulos = itemView.findViewById(R.id.listModulos);
             lineChart = itemView.findViewById(R.id.lineChartIndicador);
+            horizontalBarChart = itemView.findViewById(R.id.horizontalBarChartIndicador);
 
         }
 
@@ -110,8 +114,11 @@ public class RecyclerDataAdapterIndicadores extends RecyclerView.Adapter<Recycle
             textOdsSeleccionado.setVisibility(View.GONE);
 
             if (indicador.getIdIndicador() == 4) {
-                // Ocultar gráfico y mostrar tabla
                 chart.setVisibility(View.GONE);
+                pieChart.setVisibility(View.GONE);
+                lineChart.setVisibility(View.GONE);
+                horizontalBarChart.setVisibility(View.GONE);
+
                 table.setVisibility(View.VISIBLE);
                 table.removeAllViews();
 
@@ -157,6 +164,9 @@ public class RecyclerDataAdapterIndicadores extends RecyclerView.Adapter<Recycle
             if (indicador.getIdIndicador() == 5) {
                 chart.setVisibility(View.GONE);
                 table.setVisibility(View.GONE);
+                lineChart.setVisibility(View.GONE);
+                horizontalBarChart.setVisibility(View.GONE);
+
                 pieChart.setVisibility(View.VISIBLE);
                 textOdsSeleccionado.setVisibility(View.VISIBLE);
                 pieChart.clear();
@@ -218,6 +228,9 @@ public class RecyclerDataAdapterIndicadores extends RecyclerView.Adapter<Recycle
             if (indicador.getIdIndicador() == 3) {
                 chart.setVisibility(View.GONE);
                 table.setVisibility(View.GONE);
+                lineChart.setVisibility(View.GONE);
+                horizontalBarChart.setVisibility(View.GONE);
+
                 pieChart.setVisibility(View.VISIBLE);
                 textOdsSeleccionado.setVisibility(View.VISIBLE);
                 pieChart.clear();
@@ -280,6 +293,10 @@ public class RecyclerDataAdapterIndicadores extends RecyclerView.Adapter<Recycle
 
             if (indicador.getIdIndicador() == 7) {
                 chart.setVisibility(View.GONE);
+                pieChart.setVisibility(View.GONE);
+                lineChart.setVisibility(View.GONE);
+                horizontalBarChart.setVisibility(View.GONE);
+
                 table.setVisibility(View.VISIBLE);
                 table.removeAllViews();
 
@@ -333,12 +350,15 @@ public class RecyclerDataAdapterIndicadores extends RecyclerView.Adapter<Recycle
                 return;
             }
 
-            if (indicador.getIdIndicador() == 1) {
+
+
+
+            if (indicador.getIdIndicador() == 12 || indicador.getIdIndicador() == 1) {
                 chart.setVisibility(View.GONE);
                 pieChart.setVisibility(View.GONE);
                 table.setVisibility(View.GONE);
+                horizontalBarChart.setVisibility(View.GONE);
 
-                LineChart lineChart = itemView.findViewById(R.id.lineChartIndicador);
                 lineChart.setVisibility(View.VISIBLE);
                 lineChart.clear();
 
@@ -356,11 +376,11 @@ public class RecyclerDataAdapterIndicadores extends RecyclerView.Adapter<Recycle
                 }
 
                 LineDataSet dataSet = new LineDataSet(entries, "Valores");
-                dataSet.setColor(Color.BLUE);
+                dataSet.setColor(Color.MAGENTA);
                 dataSet.setValueTextColor(Color.BLACK);
                 dataSet.setLineWidth(2f);
                 dataSet.setCircleRadius(4f);
-                dataSet.setCircleColor(Color.RED);
+                dataSet.setCircleColor(Color.BLUE);
 
                 LineData lineData = new LineData(dataSet);
                 lineChart.setData(lineData);
@@ -382,8 +402,67 @@ public class RecyclerDataAdapterIndicadores extends RecyclerView.Adapter<Recycle
             }
 
 
+            if (indicador.getIdIndicador() == 102 || indicador.getIdIndicador() == 8) {
+                chart.setVisibility(View.GONE);
+                pieChart.setVisibility(View.GONE);
+                table.setVisibility(View.GONE);
+                lineChart.setVisibility(View.GONE);
+
+                horizontalBarChart.setVisibility(View.VISIBLE);
+                horizontalBarChart.clear();
+
+                List<Float> datos = indicador.getDatosGrafico();
+                List<String> etiquetas = indicador.getEtiquetasEjeX();
+
+                if (datos == null || datos.isEmpty()) {
+                    horizontalBarChart.setNoDataText("Sin datos disponibles");
+                    return;
+                }
+
+                List<BarEntry> entries = new ArrayList<>();
+                for (int i = 0; i < datos.size(); i++) {
+                    entries.add(new BarEntry(i, datos.get(i)));
+                }
+
+                BarDataSet dataSet = new BarDataSet(entries, "Valores");
+                dataSet.setColor(Color.parseColor("#03A9F4"));
+                dataSet.setValueTextColor(Color.BLACK);
+                dataSet.setValueTextSize(11f);
+
+                BarData barData = new BarData(dataSet);
+                barData.setBarWidth(0.85f);
+
+                horizontalBarChart.setData(barData);
+                horizontalBarChart.setFitBars(true);
+                horizontalBarChart.getDescription().setEnabled(false);
+
+                // Eje X
+                XAxis xAxis = horizontalBarChart.getXAxis();
+                xAxis.setGranularity(1f);
+                xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+                xAxis.setDrawGridLines(false);
+                if (etiquetas != null && etiquetas.size() == datos.size()) {
+                    xAxis.setValueFormatter(new IndexAxisValueFormatter(etiquetas));
+                }
+
+                // Ejes Y
+                horizontalBarChart.getAxisRight().setEnabled(false);
+                horizontalBarChart.getAxisLeft().setAxisMinimum(0f);
+
+                horizontalBarChart.animateY(1000);
+                horizontalBarChart.invalidate();
+
+                return;
+            }
+
+
             chart.setVisibility(View.VISIBLE);
             table.setVisibility(View.GONE);
+            pieChart.setVisibility(View.GONE);
+            table.setVisibility(View.GONE);
+            lineChart.setVisibility(View.GONE);
+            horizontalBarChart.setVisibility(View.GONE);
+
 
             List<BarEntry> entries = new ArrayList<>();
             List<Float> datos = indicador.getDatosGrafico();
@@ -399,10 +478,13 @@ public class RecyclerDataAdapterIndicadores extends RecyclerView.Adapter<Recycle
                 entries.add(new BarEntry(i, datos.get(i)));
             }
 
+            Random random = new Random();
+            int color = Color.rgb(random.nextInt(256), random.nextInt(256), random.nextInt(256));
+
             BarDataSet dataSet = new BarDataSet(entries, "Valores");
-            dataSet.setColor(Color.parseColor("#4CAF50"));
-            dataSet.setValueTextSize(12f); // Tamaño del valor encima
-            dataSet.setValueTextColor(Color.BLACK); // Color del valor encima
+            dataSet.setColor(color); // Color aleatorio
+            dataSet.setValueTextSize(12f);
+            dataSet.setValueTextColor(Color.BLACK);
 
             BarData barData = new BarData(dataSet);
             barData.setBarWidth(0.9f);
