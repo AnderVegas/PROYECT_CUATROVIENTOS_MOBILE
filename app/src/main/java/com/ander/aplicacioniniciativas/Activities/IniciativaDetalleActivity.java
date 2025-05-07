@@ -21,6 +21,8 @@ public class IniciativaDetalleActivity extends AppCompatActivity implements Seri
     private ImageView imageCasa;
     private ImageView imageIniciativa;
     private ImageView flechaAtras;
+    private ImageView botonIndicadores;
+    private ImageView botonPerfil;
     private TextView textNombre, textFechas, textTipoHoras, textDescripcion, textProfesores, textEntidades;
 
     @Override
@@ -79,6 +81,26 @@ public class IniciativaDetalleActivity extends AppCompatActivity implements Seri
                     .placeholder(R.drawable.cargando) // pon uno por defecto
                     .into(imageIniciativa);
         }
+
+        // Boton para pantalla de indicadores
+        botonIndicadores = findViewById(R.id.imageViewIndicadores);
+        botonIndicadores.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(IniciativaDetalleActivity.this,IndicadoresActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        // Boton para pantalla de perfil
+        botonPerfil = findViewById(R.id.imageViewPerfil);
+        botonPerfil.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(IniciativaDetalleActivity.this,PerfilActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 }
 

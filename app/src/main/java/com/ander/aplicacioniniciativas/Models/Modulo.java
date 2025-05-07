@@ -8,7 +8,7 @@ import java.util.List;
 public class Modulo implements Serializable {
     @SerializedName(value = "id", alternate = {"idModulo"})
     private int idModulo;
-    @SerializedName("clase")
+    @SerializedName("clases")
     private List<Clase> clases;
     @SerializedName("nombre")
     private String nombre;

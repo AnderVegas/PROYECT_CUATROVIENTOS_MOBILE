@@ -68,6 +68,7 @@ public class IniciativasActivity extends AppCompatActivity implements Navigation
     private NavigationView navigationView;
     private Toolbar toolBar;
     private ImageView botonIndicadores;
+    private ImageView botonPerfil;
     private LinearLayout headerFecha;
     private LinearLayout filtrosDateContainer;
     private ImageView iconToggleFecha;
@@ -122,6 +123,16 @@ public class IniciativasActivity extends AppCompatActivity implements Navigation
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(IniciativasActivity.this,IndicadoresActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        // Boton para pantalla de perfil
+        botonPerfil = findViewById(R.id.imageViewPerfil);
+        botonPerfil.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(IniciativasActivity.this,PerfilActivity.class);
                 startActivity(intent);
             }
         });
@@ -462,7 +473,7 @@ public class IniciativasActivity extends AppCompatActivity implements Navigation
         int id = item.getItemId();
 
         if (id == R.id.nav_home) {
-            // Acción para "Inicio"
+            startActivity(new Intent(this, IniciativasActivity.class));
         } else if (id == R.id.nav_indicadores) {
             startActivity(new Intent(this, IndicadoresActivity.class));
         } else if (id == R.id.nav_login) {
@@ -470,7 +481,7 @@ public class IniciativasActivity extends AppCompatActivity implements Navigation
         } else if (id == R.id.nav_logout) {
             startActivity(new Intent(this, MainActivity.class));
         } else if (id == R.id.nav_Profile) {
-            // Acción para "Perfil"
+            startActivity(new Intent(this, PerfilActivity.class));
         } else if (id == R.id.nav_share) {
             // Acción para "Compartir"
         } else if (id == R.id.nav_rate) {
